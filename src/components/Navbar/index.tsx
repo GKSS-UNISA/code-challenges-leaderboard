@@ -24,7 +24,6 @@ interface NavbarLink {
 interface NavbarActionProps {
   text: string;
   href: string;
-  // variant?: ButtonProps["variant"];
   icon?: ReactNode;
   iconRight?: ReactNode;
   isButton?: boolean;
@@ -46,6 +45,8 @@ export default function Navbar({
   customNavigation,
   className,
 }: NavbarProps) {
+  const { homeUrl, logo, mobileLinks, actions } = config;
+
   return (
     <header className={cn("sticky top-0 z-50 -mb-4 px-4 pb-4", className)}>
       <div className="fade-bottom bg-background/15 absolute left-0 h-24 w-full backdrop-blur-lg"></div>
@@ -53,17 +54,17 @@ export default function Navbar({
         <NavbarComponent>
           <NavbarLeft>
             <Link
-              href={config.homeUrl}
+              href={homeUrl}
               className="flex items-center gap-2 text-xl font-bold"
             >
               <Image width={40} height={40} src={config.logo.img.src} alt={config.logo.img.alt} className='rounded-full' />
-              {config.logo.name}
+              {logo.name}
             </Link>
 
             {showNavigation && (customNavigation || <Navigation
               logoHref="/"
               menuItems={[
-                ...config.mobileLinks.map((link, i) => ({
+                ...mobileLinks.map((link, i) => ({
                   title: link.title,
                   href: link.href,
                   isLink: true,
@@ -73,7 +74,7 @@ export default function Navbar({
           </NavbarLeft>
 
           <NavbarRight>
-            {config.actions.map((action, index) =>
+            {actions.map((action, index) =>
               action.isButton ? (
                 <Button
                   key={index}
@@ -109,13 +110,13 @@ export default function Navbar({
               <SheetContent side="right">
                 <nav className="grid gap-6 text-lg font-medium">
                   <Link
-                    href={config.homeUrl}
+                    href={homeUrl}
                     className="flex items-center gap-2 text-xl font-bold"
                   >
-                    <span>{config.logo.name}</span>
+                    <span>{logo.name}</span>
                   </Link>
 
-                  {config.mobileLinks.map((link, index) => (
+                  {mobileLinks.map((link, index) => (
                     <Link
                       key={index}
                       href={link.href}
