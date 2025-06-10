@@ -14,7 +14,6 @@ import { Sheet, SheetContent, SheetTrigger } from "@/components/ui/sheet";
 import Link from "next/link";
 import Image from "next/image";
 import config from "./config";
-import { title } from "process";
 
 interface NavbarLink {
   text: string;
