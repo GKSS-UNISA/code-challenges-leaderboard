@@ -1,4 +1,4 @@
-import React from 'react'
+import React from "react";
 
 interface AuthLayoutProps {
   children: React.ReactNode;
@@ -6,8 +6,8 @@ interface AuthLayoutProps {
 
 export default function AuthLayout(props: AuthLayoutProps) {
   return (
-    <div className='flex flex-col items-center justify-center min-h-screen p-4'>
+    <div className="flex flex-col items-center justify-center min-h-screen p-4">
       {props.children}
     </div>
-  )
+  );
 }

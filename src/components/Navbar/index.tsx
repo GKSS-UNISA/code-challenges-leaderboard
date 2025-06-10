@@ -1,4 +1,4 @@
-'use client';
+"use client";
 
 import { Menu } from "lucide-react";
 import { ReactNode } from "react";
@@ -13,7 +13,7 @@ import Navigation from "@/components/ui/navigation";
 import { Sheet, SheetContent, SheetTrigger } from "@/components/ui/sheet";
 import Link from "next/link";
 import Image from "next/image";
-import config from './config'
+import config from "./config";
 import { title } from "process";
 
 interface NavbarLink {
@@ -57,32 +57,35 @@ export default function Navbar({
               href={homeUrl}
               className="flex items-center gap-2 text-xl font-bold"
             >
-              <Image width={40} height={40} src={config.logo.img.src} alt={config.logo.img.alt} className='rounded-full' />
-              {logo.name}
+              <Image
+                width={40}
+                height={40}
+                src={config.logo.img.src}
+                alt={config.logo.img.alt}
+                className="rounded-full"
+              />
             </Link>
 
-            {showNavigation && (customNavigation || <Navigation
-              logoHref="/"
-              menuItems={[
-                ...mobileLinks.map((link, i) => ({
-                  title: link.title,
-                  href: link.href,
-                  isLink: true,
-                }))
-              ]}
-             />)}
+            {showNavigation &&
+              (customNavigation || (
+                <Navigation
+                  logoHref="/"
+                  menuItems={[
+                    ...mobileLinks.map((link, i) => ({
+                      title: link.title,
+                      href: link.href,
+                      isLink: true,
+                    })),
+                  ]}
+                />
+              ))}
           </NavbarLeft>
 
           <NavbarRight>
             {actions.map((action, index) =>
               action.isButton ? (
-                <Button
-                  key={index}
-                  asChild
-                >
-                  <Link href={action.href}>
-                    {action.title}
-                  </Link>
+                <Button key={index} asChild>
+                  <Link href={action.href}>{action.title}</Link>
                 </Button>
               ) : (
                 <Link

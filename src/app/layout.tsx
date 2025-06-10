@@ -1,6 +1,6 @@
-import React from 'react'
+import React from "react";
 import type { Metadata } from "next";
-import Navbar from '@/components/Navbar'
+import Navbar from "@/components/Navbar";
 import { Geist, Geist_Mono } from "next/font/google";
 import "./globals.css";
 
@@ -16,7 +16,8 @@ const geistMono = Geist_Mono({
 
 export const metadata: Metadata = {
   title: "GKSS - UNISA | Code Challenges Platform",
-  description: "Code Challenges Platform built by GKSS for UNISA students to practice coding skills & display score points.",
+  description:
+    "Code Challenges Platform built by GKSS for UNISA students to practice coding skills & display score points.",
 };
 
 export default function RootLayout({
@@ -30,7 +31,7 @@ export default function RootLayout({
         className={`${geistSans.variable} ${geistMono.variable} antialiased`}
       >
         <Navbar />
-        <main className='absolute top-[100] w-full'>{children}</main>
+        <main className="absolute top-[100] w-full">{children}</main>
       </body>
     </html>
   );

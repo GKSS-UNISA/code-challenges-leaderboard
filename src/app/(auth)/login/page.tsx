@@ -1,4 +1,4 @@
-import React from 'react'
+import React from "react";
 
 export default function Login() {
   return (
@@ -7,5 +7,5 @@ export default function Login() {
       <p>Please enter your credentials to log in.</p>
       {/* Add your login form here */}
     </>
-  )
+  );
 }
