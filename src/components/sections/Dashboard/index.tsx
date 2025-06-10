@@ -21,9 +21,7 @@ export default function Dashboard() {
     { username: 'user2', score: 90 },
     { username: 'user1', score: 100 },
     { username: 'user3', score: 80 },
-  ]
-
-  const sortedParticipants = participants.sort((a, b) => b.score - a.score)
+  ].sort((a, b) => b.score - a.score).slice(0, 20)
 
   return (
     <main className='flex flex-col items-start justify-start min-h-[calc(100vh-64px)] p-6 w-full'>
@@ -41,7 +39,7 @@ export default function Dashboard() {
 
           <TableBody>
             <>
-              {sortedParticipants.map((participant) => (
+              {participants.map((participant) => (
                 <TableRow key={participant.username}>
                   <TableCell className='font-bold'>{participant.username}</TableCell>
                   <TableCell>{participant.score}</TableCell>
