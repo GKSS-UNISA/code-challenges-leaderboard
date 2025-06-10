@@ -43,7 +43,7 @@ export default function Dashboard() {
             <>
               {sortedParticipants.map((participant) => (
                 <TableRow key={participant.username}>
-                  <TableCell className='font-medium'>{participant.username}</TableCell>
+                  <TableCell className='font-bold'>{participant.username}</TableCell>
                   <TableCell>{participant.score}</TableCell>
                 </TableRow>
               ))}
