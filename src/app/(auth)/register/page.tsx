@@ -1,4 +1,4 @@
-import React from 'react'
+import React from "react";
 
 export default function Register() {
   return (
@@ -7,5 +7,5 @@ export default function Register() {
       <p>Please fill out the form to create a new account.</p>
       {/* Add your registration form here */}
     </>
-  )
+  );
 }
