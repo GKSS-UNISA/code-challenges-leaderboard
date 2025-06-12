@@ -8,8 +8,8 @@ import {
 } from "@/components/ui/table";
 
 export default function Participants() {
-  // Replace with actual data fetching logic for participants and scores
-  const participants = [
+  // Replace with actual data fetching logic for scores and scores
+  const scores = [
     { username: "CodeNinja42", score: 90 },
     { username: "ByteMaster", score: 100 },
     { username: "GitWizard", score: 80 },
@@ -41,12 +41,10 @@ export default function Participants() {
 
           <TableBody>
             <>
-              {participants.map((participant) => (
-                <TableRow key={participant.username}>
-                  <TableCell className="font-bold">
-                    {participant.username}
-                  </TableCell>
-                  <TableCell>{participant.score}</TableCell>
+              {scores.map((score) => (
+                <TableRow key={score.username}>
+                  <TableCell className="font-bold">{score.username}</TableCell>
+                  <TableCell>{score.score}</TableCell>
                 </TableRow>
               ))}
             </>
