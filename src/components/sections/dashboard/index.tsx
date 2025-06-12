@@ -16,7 +16,7 @@ export default function Dashboard() {
     username: "github_username",
   };
 
-  // Replace with actual data fetching logic for participants and scores
+  // Replace with actual data fetching logic for scores and scores
   const participants = [
     { username: "user2", score: 90 },
     { username: "user1", score: 100 },
