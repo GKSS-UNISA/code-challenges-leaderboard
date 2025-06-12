@@ -11,10 +11,11 @@ import {
 } from "@/components/ui/navbar";
 import Navigation from "@/components/ui/navigation";
 import { Sheet, SheetContent, SheetTrigger } from "@/components/ui/sheet";
-import { SignedIn, SignedOut } from "@clerk/nextjs";
+import { SignedIn, SignedOut, useClerk } from "@clerk/nextjs";
 import Link from "next/link";
 import Image from "next/image";
 import config from "./config";
+import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 
 interface NavbarLink {
   text: string;
@@ -46,6 +47,8 @@ export default function Navbar({
   className,
 }: NavbarProps) {
   const { homeUrl, logo, mobileLinks, actions } = config;
+
+  const { user } = useClerk();
 
   return (
     <header className={cn("sticky top-0 z-50 -mb-4 px-4 pb-4", className)}>
@@ -102,21 +105,35 @@ export default function Navbar({
           </NavbarLeft>
 
           <NavbarRight>
-            {actions.map((action, index) =>
-              action.isButton ? (
-                <Button key={index} asChild>
-                  <Link href={action.href}>{action.title}</Link>
-                </Button>
-              ) : (
-                <Link
-                  key={index}
-                  href={action.href}
-                  className="hidden text-sm md:block"
-                >
-                  {action.title}
-                </Link>
-              ),
-            )}
+            <SignedOut>
+              {actions.map((action, index) =>
+                action.isButton ? (
+                  <Button key={index} asChild>
+                    <Link href={action.href}>{action.title}</Link>
+                  </Button>
+                ) : (
+                  <Link
+                    key={index}
+                    href={action.href}
+                    className="hidden text-sm md:block"
+                  >
+                    {action.title}
+                  </Link>
+                ),
+              )}
+            </SignedOut>
+
+            <SignedIn>
+              <Avatar>
+                <AvatarImage
+                  src={user?.imageUrl}
+                  alt={user?.username ?? "User avatar"}
+                />
+                <AvatarFallback>
+                  {user?.username ? `${user.username[0].toUpperCase()}` : "U"}
+                </AvatarFallback>
+              </Avatar>
+            </SignedIn>
 
             <Sheet>
               <SheetTrigger asChild>
