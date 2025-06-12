@@ -27,6 +27,9 @@ jobs:
         run: npm ci
 
       - name: Build Project
+        env:
+          CLERK_SECRET_KEY: ${{ secrets.CLERK_SECRET_KEY }}
+          NEXT_PUBLIC_CLERK_PUBLISHABLE_KEY: ${{ secrets.CLERK_PUBLISHABLE_KEY }}
         run: npm run build
 
       - name: Deploy to Vercel
