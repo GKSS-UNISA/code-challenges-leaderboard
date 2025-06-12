@@ -16,6 +16,14 @@ import Link from "next/link";
 import Image from "next/image";
 import config from "./config";
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
+import {
+  DropdownMenu,
+  DropdownMenuContent,
+  DropdownMenuItem,
+  DropdownMenuLabel,
+  DropdownMenuSeparator,
+  DropdownMenuTrigger,
+} from "@/components/ui/dropdown-menu";
 
 interface NavbarLink {
   text: string;
@@ -48,7 +56,7 @@ export default function Navbar({
 }: NavbarProps) {
   const { homeUrl, logo, mobileLinks, actions } = config;
 
-  const { user } = useClerk();
+  const { user, signOut } = useClerk();
 
   return (
     <header className={cn("sticky top-0 z-50 -mb-4 px-4 pb-4", className)}>
@@ -97,7 +105,7 @@ export default function Navbar({
                         href: link.href,
                         isLink: true,
                       })),
-                      { title: "Settings", href: "/settings", isLink: true },
+                      { title: "Settings", href: "/profile", isLink: true },
                     ]}
                   />
                 ))}
@@ -124,15 +132,43 @@ export default function Navbar({
             </SignedOut>
 
             <SignedIn>
-              <Avatar>
-                <AvatarImage
-                  src={user?.imageUrl}
-                  alt={user?.username ?? "User avatar"}
-                />
-                <AvatarFallback>
-                  {user?.username ? `${user.username[0].toUpperCase()}` : "U"}
-                </AvatarFallback>
-              </Avatar>
+              <DropdownMenu>
+                <DropdownMenuTrigger asChild>
+                  <Avatar>
+                    <AvatarImage
+                      src={user?.imageUrl}
+                      alt={user?.username ?? "User avatar"}
+                    />
+                    <AvatarFallback>
+                      {user?.username
+                        ? `${user.username[0].toUpperCase()}`
+                        : "U"}
+                    </AvatarFallback>
+                  </Avatar>
+                </DropdownMenuTrigger>
+                <DropdownMenuContent>
+                  <DropdownMenuLabel className="font-semibold">
+                    {user?.fullName || user?.username || "User"}
+                  </DropdownMenuLabel>
+                  <DropdownMenuSeparator />
+                  <DropdownMenuItem>
+                    <Link href="/scores" className="w-full h-full">
+                      All Scores
+                    </Link>
+                  </DropdownMenuItem>
+                  <DropdownMenuItem>
+                    <Link href="/profile" className="w-full h-full">
+                      My Profile
+                    </Link>
+                  </DropdownMenuItem>
+                  <DropdownMenuSeparator />
+                  <DropdownMenuItem onSelect={() => signOut()} asChild>
+                    <Button variant="destructive" className="w-full">
+                      Sign out
+                    </Button>
+                  </DropdownMenuItem>
+                </DropdownMenuContent>
+              </DropdownMenu>
             </SignedIn>
 
             <Sheet>
