@@ -6,7 +6,7 @@ interface AuthLayoutProps {
 
 export default function AuthLayout(props: AuthLayoutProps) {
   return (
-    <div className="flex flex-col items-center justify-center min-h-screen p-4">
+    <div className="flex flex-col items-center justify-center min-h-[calc(100vh-64px)] p-4">
       {props.children}
     </div>
   );

@@ -1,35 +1,38 @@
+import React from "react";
 import {
   Table,
   TableBody,
+  TableCaption,
   TableCell,
   TableHead,
   TableHeader,
   TableRow,
+  TableFooter,
 } from "@/components/ui/table";
 
-export default function Participants() {
-  // Replace with actual data fetching logic for participants and scores
+export default function Dashboard() {
+  // Replace with actual user data fetching logic
+  const user = {
+    username: "github_username",
+  };
+
+  // Replace with actual data fetching logic for scores and scores
   const participants = [
-    { username: "CodeNinja42", score: 90 },
-    { username: "ByteMaster", score: 100 },
-    { username: "GitWizard", score: 80 },
-    { username: "DevDragon", score: 30 },
-    { username: "HackHero", score: 8320 },
-    { username: "PixelPioneer", score: 3 },
-    { username: "BugBuster", score: 453 },
-    { username: "SyntaxSorcerer", score: 854 },
-    { username: "QueueQueen", score: 2 },
-    { username: "ForkPhantom", score: 80 },
-    { username: "CommitCrusader", score: 375 },
-    { username: "AlgoAce", score: 272227 },
-    { username: "PullRequestPro", score: 80 },
-    { username: "BranchBaron", score: 940 },
+    { username: "user2", score: 90 },
+    { username: "user1", score: 100 },
+    { username: "user3", score: 80 },
   ]
     .sort((a, b) => b.score - a.score)
     .slice(0, 20);
 
   return (
     <main className="flex flex-col items-start justify-start min-h-[calc(100vh-64px)] p-6 w-full">
+      <div className="w-full max-w-3xl mb-6">
+        <h1 className="text-2xl font-bold mb-4">
+          Welcome back, <br />{" "}
+          <span className="text-xl font-medium">{user.username}</span>
+        </h1>
+      </div>
       <div className="w-full">
         <Table>
           <TableHeader>
