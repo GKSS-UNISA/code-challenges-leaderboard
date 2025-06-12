@@ -11,6 +11,7 @@ import {
 } from "@/components/ui/navbar";
 import Navigation from "@/components/ui/navigation";
 import { Sheet, SheetContent, SheetTrigger } from "@/components/ui/sheet";
+import { SignedIn, SignedOut } from "@clerk/nextjs";
 import Link from "next/link";
 import Image from "next/image";
 import config from "./config";
@@ -65,19 +66,39 @@ export default function Navbar({
               />
             </Link>
 
-            {showNavigation &&
-              (customNavigation || (
-                <Navigation
-                  logoHref="/"
-                  menuItems={[
-                    ...mobileLinks.map((link, i) => ({
-                      title: link.title,
-                      href: link.href,
-                      isLink: true,
-                    })),
-                  ]}
-                />
-              ))}
+            <SignedOut>
+              {showNavigation &&
+                (customNavigation || (
+                  <Navigation
+                    logoHref="/"
+                    menuItems={[
+                      ...mobileLinks.map((link, i) => ({
+                        title: link.title,
+                        href: link.href,
+                        isLink: true,
+                      })),
+                    ]}
+                  />
+                ))}
+            </SignedOut>
+
+            <SignedIn>
+              {showNavigation &&
+                (customNavigation || (
+                  <Navigation
+                    logoHref="/"
+                    menuItems={[
+                      { title: "Scores", href: "/scores", isLink: true },
+                      ...mobileLinks.map((link, i) => ({
+                        title: link.title,
+                        href: link.href,
+                        isLink: true,
+                      })),
+                      { title: "Settings", href: "/settings", isLink: true },
+                    ]}
+                  />
+                ))}
+            </SignedIn>
           </NavbarLeft>
 
           <NavbarRight>
