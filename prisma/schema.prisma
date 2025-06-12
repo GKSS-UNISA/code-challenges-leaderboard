@@ -19,7 +19,7 @@ model ClientID {
   createdAt   DateTime @default(now())
   updatedAt   DateTime @updatedAt
   clerkUserId String   @unique @map("clerk_user_id")
-  value       String
+  value       String?
 
   Score Score[]
 
