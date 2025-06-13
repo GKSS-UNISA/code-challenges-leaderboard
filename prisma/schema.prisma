@@ -19,7 +19,7 @@ model ClientID {
   createdAt   DateTime @default(now())
   updatedAt   DateTime @updatedAt
   clerkUserId String   @unique @map("clerk_user_id")
-  value       String?
+  value       String   @unique
 
   Score Score[]
 
@@ -35,6 +35,6 @@ model Score {
 
   client ClientID @relation(fields: [clientId], references: [id], onDelete: Cascade)
 
-  @@unique([clientId, createdAt])
+  @@unique([clientId])
   @@index([clientId])
 }
