@@ -13,3 +13,28 @@ datasource db {
   provider = "postgresql"
   url      = env("DATABASE_URL")
 }
+
+model ClientID {
+  id          String   @id @default(cuid())
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+  clerkUserId String   @unique @map("clerk_user_id")
+  value       String   @unique
+
+  Score Score[]
+
+  @@index([clerkUserId])
+}
+
+model Score {
+  id        String   @id @default(cuid())
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+  clientId  String   @map("client_id")
+  value     Int
+
+  client ClientID @relation(fields: [clientId], references: [id], onDelete: Cascade)
+
+  @@unique([clientId])
+  @@index([clientId])
+}

@@ -70,7 +70,7 @@ export default function Navigation({
       title: "Hover Card",
       href: "/docs/primitives/hover-card",
       description:
-        "For sighted users to preview content available behind a link.",
+        "For sighted user to preview content available behind a link.",
     },
     {
       title: "Progress",

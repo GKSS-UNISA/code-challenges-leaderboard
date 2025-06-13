@@ -99,13 +99,11 @@ export default function Navbar({
                   <Navigation
                     logoHref="/"
                     menuItems={[
-                      { title: "Scores", href: "/scores", isLink: true },
                       ...mobileLinks.map((link, i) => ({
                         title: link.title,
                         href: link.href,
                         isLink: true,
                       })),
-                      { title: "Settings", href: "/profile", isLink: true },
                     ]}
                   />
                 ))}
