@@ -1,6 +1,6 @@
 import UserInfo from "@/components/sections/profile/user-info";
 
-export default function Settings() {
+export default function Profile() {
   return (
     <main className="flex flex-col items-start justify-start min-h-[calc(100vh-64px)] p-6 w-full">
       <div className="w-full mb-6">
