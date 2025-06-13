@@ -7,12 +7,20 @@ import { Button } from "@/components/ui/button";
 export default function UserInfo() {
   const { user } = useClerk();
 
+  // TODO: Implement cleaner way to handle client ID & loading state
   const [clientId, setClientId] = React.useState<string>("");
+  const [isLoading, setIsLoading] = React.useState<boolean>(false);
 
   React.useEffect(() => {
     async function fetchClientId() {
+      setIsLoading(true);
+
       const clerkUserId = user?.id;
-      if (!clerkUserId) return;
+      if (!clerkUserId) {
+        console.error("No Clerk user ID found");
+        setIsLoading(false);
+        return;
+      }
 
       const res = await fetch("/api/user/client-id", {
         method: "GET",
@@ -24,15 +32,40 @@ export default function UserInfo() {
       if (!res.ok) {
         // send exception to Sentry
         console.error("Failed to fetch client ID");
+        setIsLoading(false);
         return;
       }
 
       const { clientId } = await res.json();
       setClientId(clientId);
+      setIsLoading(false);
     }
 
     fetchClientId();
-  }, [user?.id]);
+  }, [clientId, user?.id]);
+
+  // TODO: Implement logic to automatically reload page when client ID is generated
+  async function handleGenerateClientId() {
+    const clerkUserId = user?.id;
+    if (!clerkUserId) return;
+
+    const res = await fetch("/api/user/client-id/generate", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({ clerkUserId }),
+    });
+
+    if (!res.ok) {
+      // send exception to Sentry
+      console.error("Failed to generate client ID");
+      return;
+    }
+
+    const { clientId } = await res.json();
+    setClientId(clientId);
+  }
 
   return (
     <div className="w-full flex flex-col items-start justify-start gap-6">
@@ -60,9 +93,12 @@ export default function UserInfo() {
             {clientId || "No Client ID generated yet"}
           </span>
 
-          {/* Implement client ID generation logic for this button */}
-          <Button variant="secondary">
-            {clientId ? "Regenerate" : "Generate"}
+          <Button
+            variant="secondary"
+            onClick={() => handleGenerateClientId()}
+            disabled={isLoading}
+          >
+            {isLoading ? "Generating..." : clientId ? "Regenerate" : "Generate"}
           </Button>
         </div>
       </div>
