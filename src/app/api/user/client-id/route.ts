@@ -1,18 +1,33 @@
 import { NextResponse, type NextRequest } from "next/server";
 import prisma from "@/lib/prisma";
 
-// TODO: Fix this implementation to return the client ID for the user
 export async function GET(req: NextRequest) {
-  const userId = req.headers.get("x-clerk-user-id");
-  if (!userId) {
+  const clerkUserId = req.headers.get("x-clerk-user-id");
+  if (!clerkUserId) {
     return NextResponse.json({ error: "User ID is required" }, { status: 400 });
   }
 
-  const clientId = prisma.clientID.findUnique({
-    where: {
-      clerkUserId: userId,
-    },
-  });
+  try {
+    const item = await prisma.clientID.findUnique({
+      where: {
+        clerkUserId,
+      },
+    });
 
-  return NextResponse.json({ clientId }, { status: 200 });
+    if (!item) {
+      return NextResponse.json(
+        { error: "Client ID not found" },
+        { status: 404 },
+      );
+    }
+
+    return NextResponse.json({ clientId: item.value }, { status: 200 });
+  } catch (error) {
+    // send exception to Sentry
+    console.error("Error fetching client ID:", error);
+    return NextResponse.json(
+      { error: "Error fetching client ID" },
+      { status: 500 },
+    );
+  }
 }
