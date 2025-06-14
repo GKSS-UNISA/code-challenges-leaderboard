@@ -55,8 +55,8 @@ export default function Navbar({
       isButton: false,
     },
     {
-      text: "Get Started",
-      href: "/docs",
+      text: "Sign Up",
+      href: "/register",
       isButton: true,
       variant: "default",
     },
