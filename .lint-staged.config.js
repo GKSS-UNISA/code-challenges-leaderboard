@@ -7,6 +7,7 @@ const buildEslintCommand = (filenames) =>
 const lintStagedConfig = {
   "*.{js,ts,tsx}": [buildEslintCommand, "prettier --write"],
   "*.{json,yml,yaml,md,mdx,html}": ["prettier --write"],
+  "*.prisma": ["prettier --write"],
 };
 
 export default lintStagedConfig;
