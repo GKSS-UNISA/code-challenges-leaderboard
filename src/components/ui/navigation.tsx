@@ -47,78 +47,26 @@ interface NavigationProps {
 export default function Navigation({
   menuItems = [
     {
-      title: "Getting started",
-      content: "default",
-    },
-    {
-      title: "Components",
-      content: "components",
-    },
-    {
-      title: "Documentation",
+      title: "Challenges",
       isLink: true,
-      href: "https://www.launchuicomponents.com/",
+      href: "https://github.com/GKSS-UNISA/code-challenges",
+    },
+    {
+      title: "How To Use",
+      isLink: true,
+      href: "/docs",
+    },
+    {
+      title: "Issues",
+      isLink: true,
+      href: "https://github.com/GKSS-UNISA/code-challenges/issues",
     },
   ],
-  components = [
-    {
-      title: "Alert Dialog",
-      href: "/docs/primitives/alert-dialog",
-      description:
-        "A modal dialog that interrupts the user with important content and expects a response.",
-    },
-    {
-      title: "Hover Card",
-      href: "/docs/primitives/hover-card",
-      description:
-        "For sighted users to preview content available behind a link.",
-    },
-    {
-      title: "Progress",
-      href: "/docs/primitives/progress",
-      description:
-        "Displays an indicator showing the completion progress of a task, typically displayed as a progress bar.",
-    },
-    {
-      title: "Scroll-area",
-      href: "/docs/primitives/scroll-area",
-      description: "Visually or semantically separates content.",
-    },
-    {
-      title: "Tabs",
-      href: "/docs/primitives/tabs",
-      description:
-        "A set of layered sections of content—known as tab panels—that are displayed one at a time.",
-    },
-    {
-      title: "Tooltip",
-      href: "/docs/primitives/tooltip",
-      description:
-        "A popup that displays information related to an element when the element receives keyboard focus or the mouse hovers over it.",
-    },
-  ],
+  components = [],
   logo = <LaunchUI />,
-  logoTitle = "Launch UI",
+  logoTitle = "Code Challenges Leaderboard",
   logoDescription = "Landing page template built with React, Shadcn/ui and Tailwind that you can copy/paste into your project.",
-  logoHref = "https://www.launchuicomponents.com/",
-  introItems = [
-    {
-      title: "Introduction",
-      href: "https://www.launchuicomponents.com/",
-      description:
-        "Re-usable components built using Radix UI and Tailwind CSS.",
-    },
-    {
-      title: "Installation",
-      href: "https://www.launchuicomponents.com/",
-      description: "How to install dependencies and structure your app.",
-    },
-    {
-      title: "Typography",
-      href: "https://www.launchuicomponents.com/",
-      description: "Styles for headings, paragraphs, lists...etc",
-    },
-  ],
+  logoHref = "/",
 }: NavigationProps) {
   return (
     <NavigationMenu className="hidden md:flex">
@@ -126,7 +74,7 @@ export default function Navigation({
         {menuItems.map((item, index) => (
           <NavigationMenuItem key={index}>
             {item.isLink ? (
-              <Link href={item.href || ""} legacyBehavior passHref>
+              <Link href={item.href || ""} passHref>
                 <NavigationMenuLink className={navigationMenuTriggerStyle()}>
                   {item.title}
                 </NavigationMenuLink>
@@ -153,11 +101,6 @@ export default function Navigation({
                           </a>
                         </NavigationMenuLink>
                       </li>
-                      {introItems.map((intro, i) => (
-                        <ListItem key={i} href={intro.href} title={intro.title}>
-                          {intro.description}
-                        </ListItem>
-                      ))}
                     </ul>
                   ) : item.content === "components" ? (
                     <ul className="grid w-[400px] gap-3 p-4 md:w-[500px] md:grid-cols-2 lg:w-[600px]">
