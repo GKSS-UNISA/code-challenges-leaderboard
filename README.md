@@ -1,4 +1,4 @@
-# Challenges Leaderboard 🚀
+<h1 align='center'>Challenges Leaderboard 🚀</h1>
 
 ## Overview 🌟
 
