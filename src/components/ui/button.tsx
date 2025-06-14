@@ -33,7 +33,7 @@ const buttonVariants = cva(
       variant: "default",
       size: "default",
     },
-  },
+  }
 );
 
 export interface ButtonProps
@@ -59,4 +59,4 @@ function Button({
   );
 }
 
-export { Button,  };
+export { Button };
