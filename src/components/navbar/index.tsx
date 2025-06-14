@@ -73,7 +73,7 @@ export default function Navbar({
           <NavbarLeft>
             <a
               href={homeUrl}
-              className="flex items-center gap-2 text-xl font-bold"
+              className="flex items-center gap-2 text-lg sm:text-xl font-bold"
             >
               {logo}
               {name}
