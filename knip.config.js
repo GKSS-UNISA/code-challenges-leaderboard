@@ -1,6 +1,16 @@
 /**@type {import('knip').KnipConfig} */
-export default {
+const knipConfig = {
   next: true,
-  project: ['**/*.{js,ts,tsx}'],
-  ignoreDependencies: ["tailwindcss", "postcss"]
-}
+  project: ["**/*.{js,ts,tsx}"],
+  ignore: [".lint-staged.config.js"],
+  ignoreDependencies: [
+    "tailwindcss",
+    "postcss",
+    "eslint",
+    "typescript-eslint",
+    "eslint-config-prettier",
+    "tw-animate-css",
+  ],
+};
+
+export default knipConfig;

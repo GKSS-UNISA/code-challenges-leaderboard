@@ -1,10 +1,12 @@
+const buildEslintCommand = (filenames) =>
+  `next lint --fix --file ${filenames
+    .map((f) => path.relative(process.cwd(), f))
+    .join(" --file ")}`;
+
 /**@type {import('lint-staged').Configuration} */
-export default {
-  '*.{js,ts,tsx}': [
-    'eslint --fix',
-    'prettier --write',
-  ],
-  '*.{json,yml,yaml,md,mdx,html}': [
-    'prettier --write',
-  ],
-}
+const lintStagedConfig = {
+  "*.{js,ts,tsx}": [buildEslintCommand, "prettier --write"],
+  "*.{json,yml,yaml,md,mdx,html}": ["prettier --write"],
+};
+
+export default lintStagedConfig;

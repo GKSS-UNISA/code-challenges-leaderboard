@@ -1,5 +1,6 @@
 {
   "name": "challenges-leaderboard",
+  "type": "module",
   "version": "0.1.0",
   "private": true,
   "scripts": {
@@ -21,17 +22,22 @@
     "tailwind-merge": "^3.3.1"
   },
   "devDependencies": {
+    "@eslint/eslintrc": "^3.3.1",
     "@tailwindcss/postcss": "^4",
     "@types/node": "^20.19.0",
     "@types/react": "^19",
     "@types/react-dom": "^19",
+    "eslint": "^9.29.0",
+    "eslint-config-next": "^15.3.3",
+    "eslint-config-prettier": "^10.1.5",
     "husky": "^9.1.7",
     "knip": "^5.61.0",
     "lint-staged": "^16.1.0",
     "prettier": "^3.5.3",
     "tailwindcss": "^4",
     "tw-animate-css": "^1.3.4",
-    "typescript": "^5.8.3"
+    "typescript": "^5.8.3",
+    "typescript-eslint": "^8.34.0"
   },
   "lint-staged": {
     "*.{js,css,md}": "prettier --write"
