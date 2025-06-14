@@ -6,6 +6,7 @@ const compat = new FlatCompat({
 
 const eslintConfig = [
   ...compat.config({
+    ignorePatterns: ["src/generated/prisma"],
     extends: ["next/core-web-vitals", "next/typescript", "prettier"],
   }),
 ];

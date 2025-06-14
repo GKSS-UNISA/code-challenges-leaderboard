@@ -3,6 +3,7 @@ import { cn } from "@/lib/utils";
 import { Button } from "@/components/ui/button";
 import Section from "@/components/ui/section";
 import config from "@/components/sections/hero/config";
+import Link from "next/link";
 
 interface HeroProps {
   className?: string;
@@ -29,11 +30,11 @@ export default function Hero({ className }: HeroProps) {
             <div className="relative z-10 flex justify-center gap-4 delay-300">
               {config.buttons.map((button, index) => (
                 <Button key={index} variant={button.variant} size="lg" asChild>
-                  <a href={button.href}>
+                  <Link href={button.href}>
                     {button.icon}
                     {button.text}
                     {button.iconRight}
-                  </a>
+                  </Link>
                 </Button>
               ))}
             </div>
