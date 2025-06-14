@@ -19,11 +19,12 @@ export default function RegisterForm() {
       <CardHeader>
         <CardTitle>Create a new account</CardTitle>
         <CardDescription>
-          Enter your name, email, passwords & conformation password.
+          Enter your name, email, password & conformation password.
         </CardDescription>
       </CardHeader>
       <CardContent>
-        <form>
+        {/* implement register user action */}
+        <form action={() => {}}>
           <div className="flex flex-col gap-6">
             <div className="grid gap-2">
               <Label htmlFor="full-name">Full Name</Label>
