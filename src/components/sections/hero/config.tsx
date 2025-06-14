@@ -36,7 +36,7 @@ const config: HeroProps = {
   ),
   buttons: [
     {
-      href: "/register",
+      href: "/docs",
       text: "Get Started",
       variant: "default",
     },
