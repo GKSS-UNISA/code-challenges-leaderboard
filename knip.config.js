@@ -10,6 +10,7 @@ const knipConfig = {
     "typescript-eslint",
     "eslint-config-prettier",
     "tw-animate-css",
+    "eslint-config-next",
   ],
 };
 

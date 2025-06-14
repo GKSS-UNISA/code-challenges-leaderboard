@@ -3,7 +3,7 @@ import { ReactNode } from "react";
 
 import { cn } from "@/lib/utils";
 
-import LaunchUI from "../logos/launch-ui";
+import Logo from "../logos/gkss-unisa-logo";
 import { Button, type ButtonProps } from "../ui/button";
 import {
   Navbar as NavbarComponent,
@@ -12,6 +12,8 @@ import {
 } from "../ui/navbar";
 import Navigation from "../ui/navigation";
 import { Sheet, SheetContent, SheetTrigger } from "../ui/sheet";
+import { GitHubLogoIcon } from "@radix-ui/react-icons";
+import Link from "next/link";
 
 interface NavbarLink {
   text: string;
@@ -39,9 +41,9 @@ interface NavbarProps {
 }
 
 export default function Navbar({
-  logo = <LaunchUI />,
-  name = "Launch UI",
-  homeUrl = "https://www.launchuicomponents.com/",
+  logo = <Logo />,
+  name = "Code Challenges",
+  homeUrl = "/",
   mobileLinks = [
     { text: "Getting Started", href: "https://www.launchuicomponents.com/" },
     { text: "Components", href: "https://www.launchuicomponents.com/" },
@@ -50,12 +52,12 @@ export default function Navbar({
   actions = [
     {
       text: "Sign in",
-      href: "https://www.launchuicomponents.com/",
+      href: "/login",
       isButton: false,
     },
     {
       text: "Get Started",
-      href: "https://www.launchuicomponents.com/",
+      href: "/docs",
       isButton: true,
       variant: "default",
     },
@@ -94,15 +96,21 @@ export default function Navbar({
                   </a>
                 </Button>
               ) : (
-                <a
+                <Link
                   key={index}
                   href={action.href}
                   className="hidden text-sm md:block"
                 >
                   {action.text}
-                </a>
+                </Link>
               ),
             )}
+            <Link
+              href="https://github.com/GKSS-UNISA/code-challenges-leaderboard"
+              className="hidden md:block"
+            >
+              <GitHubLogoIcon className="h-7 w-auto" />
+            </Link>
             <Sheet>
               <SheetTrigger asChild>
                 <Button

@@ -6,7 +6,7 @@ import { ReactNode } from "react";
 
 import { cn } from "@/lib/utils";
 
-import LaunchUI from "../logos/launch-ui";
+import LaunchUI from "../logos/gkss-unisa-logo";
 import {
   NavigationMenu,
   NavigationMenuContent,
@@ -47,14 +47,14 @@ interface NavigationProps {
 export default function Navigation({
   menuItems = [
     {
-      title: "Challenges",
-      isLink: true,
-      href: "https://github.com/GKSS-UNISA/code-challenges",
-    },
-    {
       title: "How To Use",
       isLink: true,
       href: "/docs",
+    },
+    {
+      title: "Challenges",
+      isLink: true,
+      href: "https://github.com/GKSS-UNISA/code-challenges",
     },
     {
       title: "Issues",
