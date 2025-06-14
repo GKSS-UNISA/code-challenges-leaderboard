@@ -1,0 +1,19 @@
+* text=auto
+
+# Default line endings
+*.js text eol=lf
+*.ts text eol=lf
+*.json text eol=lf
+*.css text eol=lf
+*.md text eol=lf
+*.yaml text eol=lf
+
+# Binary files
+*.png binary
+*.jpg binary
+*.ico binary
+
+# Ignore files in export
+.gitattributes export-ignore
+.gitignore export-ignore
+README.md export-ignore
