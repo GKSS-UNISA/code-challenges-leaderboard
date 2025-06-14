@@ -11,6 +11,8 @@ const knipConfig = {
     "eslint-config-prettier",
     "tw-animate-css",
     "eslint-config-next",
+    "@prisma/client",
+    "@prisma/extension-accelerate",
   ],
 };
 

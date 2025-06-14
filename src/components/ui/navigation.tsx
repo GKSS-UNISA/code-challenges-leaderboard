@@ -47,7 +47,7 @@ interface NavigationProps {
 export default function Navigation({
   menuItems = [
     {
-      title: "How To Use",
+      title: "Docs",
       isLink: true,
       href: "/docs",
     },
@@ -140,7 +140,7 @@ function ListItem({
           data-slot="list-item"
           className={cn(
             "hover:bg-accent hover:text-accent-foreground focus:bg-accent focus:text-accent-foreground block space-y-1 rounded-md p-3 leading-none no-underline outline-hidden transition-colors select-none",
-            className,
+            className
           )}
           {...props}
         >

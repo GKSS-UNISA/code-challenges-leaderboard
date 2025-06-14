@@ -12,7 +12,6 @@ import {
 } from "../ui/navbar";
 import Navigation from "../ui/navigation";
 import { Sheet, SheetContent, SheetTrigger } from "../ui/sheet";
-import { GitHubLogoIcon } from "@radix-ui/react-icons";
 import Link from "next/link";
 
 interface NavbarLink {
@@ -103,14 +102,8 @@ export default function Navbar({
                 >
                   {action.text}
                 </Link>
-              ),
+              )
             )}
-            <Link
-              href="https://github.com/GKSS-UNISA/code-challenges-leaderboard"
-              className="hidden md:block"
-            >
-              <GitHubLogoIcon className="h-7 w-auto" />
-            </Link>
             <Sheet>
               <SheetTrigger asChild>
                 <Button
