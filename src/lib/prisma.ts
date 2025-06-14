@@ -1,4 +1,4 @@
-import { PrismaClient } from "../generated/prisma/prisma"; // don't change to use alias
+import { PrismaClient } from "@/generated/prisma";
 import { withAccelerate } from "@prisma/extension-accelerate";
 
 const globalForPrisma = global as unknown as {
