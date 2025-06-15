@@ -17,6 +17,7 @@ const eslintConfig = [
           "jest/prefer-comparison-matcher": "error",
           "jest/prefer-equality-matcher": "error",
           "jest/no-test-return-statement": "error",
+          "jest/no-conditional-expect": "off",
         },
       },
     ],
