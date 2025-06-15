@@ -1,0 +1,56 @@
+import type { ReactNode } from "react";
+import type { ButtonProps } from "../ui/button";
+import Logo from "../logos/gkss-unisa-logo";
+
+interface NavbarLink {
+  text: string;
+  href: string;
+}
+
+interface NavbarActionProps {
+  text: string;
+  href: string;
+  variant?: ButtonProps["variant"];
+  icon?: ReactNode;
+  iconRight?: ReactNode;
+  isButton?: boolean;
+}
+
+interface NavbarProps {
+  logo?: ReactNode;
+  name?: string;
+  homeUrl?: string;
+  mobileLinks: NavbarLink[];
+  actions: NavbarActionProps[];
+  showNavigation?: boolean;
+  customNavigation?: ReactNode;
+  className?: string;
+}
+
+const config: NavbarProps = {
+  logo: <Logo />,
+  name: "Code Challenges",
+  homeUrl: "/",
+  mobileLinks: [
+    { text: "Docs", href: "/docs" },
+    {
+      text: "Challenges",
+      href: "https://github.com/GKSS-UNISA/code-challenges/",
+    },
+  ],
+  actions: [
+    {
+      text: "Sign in",
+      href: "/login",
+      isButton: false,
+    },
+    {
+      text: "Sign Up",
+      href: "/register",
+      isButton: true,
+      variant: "default",
+    },
+  ],
+};
+
+export default config;
