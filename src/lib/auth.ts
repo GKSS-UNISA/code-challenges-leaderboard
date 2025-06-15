@@ -14,4 +14,4 @@ export const auth = betterAuth({
   },
 });
 
-// const authClient = createAuthClient({});
+const authClient = createAuthClient({});
