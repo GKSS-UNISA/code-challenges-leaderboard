@@ -10,7 +10,7 @@
     "start": "next start",
     "lint": "next lint",
     "knip": "knip",
-    "test": "NODE_OPTIONS=\"$NODE_OPTIONS --experimental-vm-modules\" jest --watch",
+    "test": "NODE_OPTIONS=\"$NODE_OPTIONS --experimental-vm-modules\" jest",
     "format": "prettier --write .",
     "migrate": "prisma migrate dev",
     "migrate:deploy": "prisma migrate deploy",

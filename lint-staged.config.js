@@ -6,8 +6,18 @@ const buildEslintCommand = (filenames) =>
 
 /**@type {import('lint-staged').Configuration} */
 const lintStagedConfig = {
+  "*": {
+    title: "Run tests",
+    task: (files) =>
+      files.map(
+        (f) =>
+          f.endsWith(".ts") ||
+          (f.endsWith("tsx") && `jest --bail --findRelatedTests ${f}`)
+      ),
+  },
+
   // Run ESLint and Prettier on staged JavaScript and TypeScript files
-  "*.{js,ts,tsx}": { title: [buildEslintCommand, "prettier --write"] },
+  // "*.{js,ts,tsx}": { title: [buildEslintCommand, "prettier --write"] },
 
   // Run tests for changed typescript files
   // If the file is a test file, run it directly
@@ -16,11 +26,7 @@ const lintStagedConfig = {
     title: "Running tests for changed files",
     task: (files) =>
       files.map((f) => {
-        if (f.endsWith(".test.ts") || f.endsWith(".test.tsx")) {
-          return `NODE_ENV=test jest ${process.cwd()}/src/${f}`;
-        } else {
-          return `NODE_ENV=test jest --bail --findRelatedTests`;
-        }
+        return `jest --bail --findRelatedTests ${f}`;
       }),
   },
 
