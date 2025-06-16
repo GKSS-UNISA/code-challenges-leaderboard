@@ -152,7 +152,7 @@ export default async function Index() {
     <Section className="w-full grid grid-cols-3 gap-6">
       <Card>
         <CardContent>
-          <h1 className="text-2xl font-bold mb-2">
+          <h1 className="text-lg font-bold mb-2">
             Hey there, {session.user.name}!
           </h1>
           <Separator className="mb-2" />
