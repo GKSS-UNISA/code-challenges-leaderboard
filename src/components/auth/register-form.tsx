@@ -16,44 +16,48 @@ import { authClient } from "@/lib/auth";
 import FieldInfo from "@/components/ui/form-info";
 import { useRouter } from "next/navigation";
 import Link from "next/link";
+import React from "react";
 
 export default function RegisterForm() {
   const router = useRouter();
 
+  const defaultValues = {
+    name: "",
+    email: "",
+    password: "",
+    confirmPassword: "",
+  };
+
   const form = useForm({
-    defaultValues: {
-      name: "",
-      email: "",
-      password: "",
-      confirmPassword: "",
-    },
-    onSubmit: async (values) => {
-      const { value: val } = values;
+    defaultValues,
+    onSubmit: async ({ value }) => {
       try {
         const resp = await authClient.signUp.email({
-          name: val.name,
-          email: val.email,
-          password: val.confirmPassword,
+          name: value.name,
+          email: value.email,
+          password: value.confirmPassword,
         });
 
         if (resp.error) {
-          console.error("Sign up error:", resp.error);
-          return;
+          // send to exception tracking service
+          console.error("Registration error:", resp.error);
         }
 
-        console.log("Sign up successful:", resp.data);
         form.reset();
         router.push("/login");
-      } catch (error) {
-        console.error("Error during sign up:", error);
+      } catch (error: any) {
+        form.setErrorMap({
+          onSubmit:
+            error.message || "Something went wrong, please try again later.",
+        });
       }
     },
   });
 
-  function handleSubmit(e: React.FormEvent) {
+  async function handleSubmit(e: React.FormEvent) {
     e.preventDefault();
     e.stopPropagation();
-    form.handleSubmit();
+    await form.handleSubmit();
   }
 
   return (
@@ -64,6 +68,17 @@ export default function RegisterForm() {
           <CardDescription>
             Enter your name, email, passwords & conformation password.
           </CardDescription>
+          {form.state.errors && (
+            <div className="mt-4">
+              {form.state.errors.map((error, i) => {
+                return (
+                  <p key={i} className="text-destructive text-xs mt-2">
+                    {error}
+                  </p>
+                );
+              })}
+            </div>
+          )}
         </CardHeader>
 
         <CardContent>

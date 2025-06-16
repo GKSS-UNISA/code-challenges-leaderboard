@@ -6,6 +6,29 @@ const compat = new FlatCompat({
 
 const eslintConfig = [
   ...compat.config({
+    overrides: [
+      {
+        files: ["**/*.ts", "**/*.tsx"],
+        rules: {
+          "@typescript-eslint/no-unused-vars": [
+            "warn",
+            { argsIgnorePattern: "^_", varsIgnorePattern: "^_" },
+          ],
+          "@typescript-eslint/explicit-module-boundary-types": "off",
+          "@typescript-eslint/no-explicit-any": "off",
+        },
+      },
+      {
+        files: ["**/*.js", "**/*.jsx"],
+        rules: {
+          "no-console": "warn",
+          "no-unused-vars": [
+            "warn",
+            { argsIgnorePattern: "^_", varsIgnorePattern: "^_" },
+          ],
+        },
+      },
+    ],
     ignorePatterns: ["src/generated/prisma"],
     extends: ["next/core-web-vitals", "next/typescript", "prettier"],
   }),
