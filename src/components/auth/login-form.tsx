@@ -24,20 +24,27 @@ export default function LoginForm() {
     defaultValues: {
       email: "",
       password: "",
+      error: "",
     },
     onSubmit: async ({ value }) => {
       try {
-        const resp = await authClient.signIn.email({
+        const { error } = await authClient.signIn.email({
           email: value.email,
           password: value.password,
         });
 
-        if (resp.error) {
-          console.error("Login error:", resp.error);
+        if (error) {
+          form.setErrorMap({
+            // @ts-expect-error: allow force setting of error message
+            onSubmit: error.message || "Login failed",
+          });
+
+          // reset email & password fields
+          form.resetField("email");
+          form.resetField("password");
           return;
         }
 
-        console.log("Login successful:", resp.data);
         form.reset();
         router.push("/dashboard");
       } catch (error) {
@@ -60,6 +67,20 @@ export default function LoginForm() {
           <CardDescription>
             Enter your email below to login to your account
           </CardDescription>
+          {form.state.errors && (
+            <div className="mt-4">
+              {form.state.errors.map((error, i) => {
+                return (
+                  <p
+                    key={`error_${i}`}
+                    className="text-destructive text-xs mt-2"
+                  >
+                    {error}
+                  </p>
+                );
+              })}
+            </div>
+          )}
         </CardHeader>
 
         <CardContent>
