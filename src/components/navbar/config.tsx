@@ -34,8 +34,8 @@ const config: NavbarProps = {
   mobileLinks: [
     { text: "Docs", href: "/docs" },
     {
-      text: "Challenges",
-      href: "https://github.com/GKSS-UNISA/code-challenges/",
+      text: "Issues",
+      href: "https://github.com/GKSS-UNISA/code-challenges/issues",
     },
   ],
   actions: [
