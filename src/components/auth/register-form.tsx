@@ -11,11 +11,15 @@ import {
 } from "@/components/ui/card";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
-import { useForm, type AnyFieldApi } from "@tanstack/react-form";
+import { useForm } from "@tanstack/react-form";
 import { authClient } from "@/lib/auth";
+import FieldInfo from "@/components/ui/form-info";
+import { useRouter } from "next/navigation";
 import Link from "next/link";
 
 export default function RegisterForm() {
+  const router = useRouter();
+
   const form = useForm({
     defaultValues: {
       name: "",
@@ -39,8 +43,7 @@ export default function RegisterForm() {
 
         console.log("Sign up successful:", resp.data);
         form.reset();
-
-        // redirect to home page
+        router.push("/login");
       } catch (error) {
         console.error("Error during sign up:", error);
       }
@@ -203,18 +206,5 @@ export default function RegisterForm() {
         </CardContent>
       </form>
     </Card>
-  );
-}
-
-function FieldInfo({ field }: { field: AnyFieldApi }) {
-  return (
-    <>
-      {field.state.meta.isTouched && !field.state.meta.isValid ? (
-        <em className="text-destructive text-xs">
-          {field.state.meta.errors.join(", ")}
-        </em>
-      ) : null}
-      {field.state.meta.isValidating ? "Validating..." : null}
-    </>
   );
 }
