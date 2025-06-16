@@ -8,10 +8,7 @@ export default function Section({
   return (
     <section
       data-slot="section"
-      className={cn(
-        "bg-background text-foreground px-4 py-12 sm:py-24 md:py-32",
-        className
-      )}
+      className={cn("bg-background text-foreground px-4 py-12 ", className)}
       {...props}
     />
   );

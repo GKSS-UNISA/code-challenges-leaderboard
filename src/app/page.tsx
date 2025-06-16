@@ -1,9 +1,186 @@
 import Hero from "@/components/sections/hero";
+import { Card } from "@/components/ui/card";
+import Section from "@/components/ui/section";
+import {
+  Table,
+  TableBody,
+  TableCaption,
+  TableCell,
+  TableHead,
+  TableHeader,
+  TableRow,
+} from "@/components/ui/table";
+import { auth } from "@/lib/auth";
+import { headers } from "next/headers";
 
-export default function Index() {
+export default async function Index() {
+  const session = await auth.api.getSession({
+    headers: await headers(),
+  });
+
+  const tableHeaders = ["ID", "Name", "Email", "Points"];
+
+  const tableData = [
+    {
+      id: "1",
+      name: "John Doe",
+      email: "john.doe@example.com",
+      points: 125,
+    },
+    {
+      id: "2",
+      name: "Sarah Johnson",
+      email: "sarah.j@example.com",
+      points: 347,
+    },
+    {
+      id: "3",
+      name: "Michael Chen",
+      email: "mchen@example.com",
+      points: 290,
+    },
+    {
+      id: "4",
+      name: "Emma Wilson",
+      email: "emma.w@example.com",
+      points: 188,
+    },
+    {
+      id: "5",
+      name: "James Rodriguez",
+      email: "jrodriguez@example.com",
+      points: 423,
+    },
+    {
+      id: "6",
+      name: "Olivia Taylor",
+      email: "otaylor@example.com",
+      points: 156,
+    },
+    {
+      id: "7",
+      name: "Robert Kim",
+      email: "rkim@example.com",
+      points: 275,
+    },
+    {
+      id: "8",
+      name: "Emily Davis",
+      email: "e.davis@example.com",
+      points: 310,
+    },
+    {
+      id: "9",
+      name: "Daniel Martinez",
+      email: "dmartinez@example.com",
+      points: 201,
+    },
+    {
+      id: "10",
+      name: "Sophia Ahmed",
+      email: "sahmed@example.com",
+      points: 355,
+    },
+    {
+      id: "11",
+      name: "William Brown",
+      email: "wbrown@example.com",
+      points: 178,
+    },
+    {
+      id: "12",
+      name: "Ava Garcia",
+      email: "agarcia@example.com",
+      points: 267,
+    },
+    {
+      id: "13",
+      name: "Ethan Patel",
+      email: "epatel@example.com",
+      points: 389,
+    },
+    {
+      id: "14",
+      name: "Isabella Wong",
+      email: "iwong@example.com",
+      points: 233,
+    },
+    {
+      id: "15",
+      name: "Alexander Thompson",
+      email: "athompson@example.com",
+      points: 298,
+    },
+    {
+      id: "16",
+      name: "Mia Nguyen",
+      email: "mnguyen@example.com",
+      points: 312,
+    },
+    {
+      id: "17",
+      name: "Benjamin Lee",
+      email: "blee@example.com",
+      points: 245,
+    },
+    {
+      id: "18",
+      name: "Charlotte Robinson",
+      email: "crobinson@example.com",
+      points: 176,
+    },
+    {
+      id: "19",
+      name: "Jacob Singh",
+      email: "jsingh@example.com",
+      points: 401,
+    },
+    {
+      id: "20",
+      name: "Amelia Clark",
+      email: "aclark@example.com",
+      points: 287,
+    },
+  ];
+
+  if (!session) {
+    return <Hero className="h-[calc(100vh-120px)]" />;
+  }
+
   return (
-    <>
-      <Hero className="h-[calc(100vh-120px)]" />
-    </>
+    <Section className="w-full grid grid-cols-3 gap-6">
+      <Card></Card>
+      <Card></Card>
+      <Card></Card>
+
+      <div className="col-span-3">
+        <Table className="w-full">
+          <TableHeader>
+            <TableCaption className="w-full text-center">
+              List of all participants and their points
+            </TableCaption>
+            <TableRow>
+              {tableHeaders.map((header, i) => (
+                <>
+                  <TableHead key={i} className="w-[100px]">
+                    {header}
+                  </TableHead>
+                </>
+              ))}
+            </TableRow>
+          </TableHeader>
+          <TableBody>
+            {tableData.map((row) => (
+              <TableRow key={row.id}>
+                <TableCell className="font-medium">{row.id}</TableCell>
+                <TableCell>{row.name}</TableCell>
+                <TableCell>{row.email}</TableCell>
+                <TableCell>{row.points}</TableCell>
+              </TableRow>
+            ))}
+          </TableBody>
+        </Table>
+      </div>
+    </Section>
   );
 }
