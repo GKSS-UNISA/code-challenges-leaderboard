@@ -13,8 +13,8 @@ import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { useForm } from "@tanstack/react-form";
 import { authClient } from "@/lib/auth";
-import FieldInfo from "@/components/ui/form-info";
 import { useRouter } from "next/navigation";
+import FieldInfo from "@/components/ui/form-info";
 import Link from "next/link";
 import React from "react";
 
@@ -39,16 +39,18 @@ export default function RegisterForm() {
         });
 
         if (resp.error) {
-          // send to exception tracking service
+          // TODO: send to exception tracking service
           console.error("Registration error:", resp.error);
         }
 
         form.reset();
         router.push("/login");
-      } catch (error: any) {
+      } catch (_error: any) {
+        // TODO: send error to exception tracking service
+        console.error(_error);
         form.setErrorMap({
-          onSubmit:
-            error.message || "Something went wrong, please try again later.",
+          // @ts-expect-error: allow force setting error message
+          onSubmit: "Something went wrong, please try again later.",
         });
       }
     },

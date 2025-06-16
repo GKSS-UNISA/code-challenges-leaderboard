@@ -47,8 +47,13 @@ export default function LoginForm() {
 
         form.reset();
         router.push("/dashboard");
-      } catch (error) {
-        console.error("Error during login:", error);
+      } catch (_error: any) {
+        // TODO: send error to exception tracking service
+        console.error(_error);
+        form.setErrorMap({
+          // @ts-expect-error: allow force setting error message
+          onSubmit: "Something went wrong, please try again later.",
+        });
       }
     },
   });
