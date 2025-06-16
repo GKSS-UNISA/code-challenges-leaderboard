@@ -46,7 +46,7 @@ export default function LoginForm() {
         }
 
         form.reset();
-        router.push("/dashboard");
+        router.push("/");
       } catch (_error: any) {
         // TODO: send error to exception tracking service
         console.error(_error);

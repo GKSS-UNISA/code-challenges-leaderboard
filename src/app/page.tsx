@@ -149,8 +149,8 @@ export default async function Index() {
   }
 
   return (
-    <Section className="w-full grid grid-cols-3 gap-6">
-      <Card>
+    <Section className="w-full grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-6">
+      <Card className="col-span-1 sm:col-span-2 md:col-span-1">
         <CardContent>
           <h1 className="text-lg font-bold mb-2">
             Hey there, {session.user.name}!
@@ -159,6 +159,7 @@ export default async function Index() {
           <p className="text-muted-foreground">{session.user.email}</p>
         </CardContent>
       </Card>
+
       <Card>
         <CardContent>
           <h2 className="text-lg font-semibold mb-2">Your Rank</h2>
@@ -169,6 +170,7 @@ export default async function Index() {
           </p>
         </CardContent>
       </Card>
+
       <Card>
         <CardContent>
           <h2 className="text-lg font-semibold mb-2">Your Points</h2>
@@ -177,19 +179,18 @@ export default async function Index() {
           <p className="text-muted-foreground mt-1">Keep up the great work!</p>
         </CardContent>
       </Card>
-      <div className="col-span-3">
+
+      <div className="col-span-full">
         <Table className="w-full">
+          <TableCaption className="w-full text-center">
+            List of all participants and their points
+          </TableCaption>
           <TableHeader>
-            <TableCaption className="w-full text-center">
-              List of all participants and their points
-            </TableCaption>
             <TableRow>
               {tableHeaders.map((header, i) => (
-                <>
-                  <TableHead key={i} className="w-[100px]">
-                    {header}
-                  </TableHead>
-                </>
+                <TableHead key={i} className="w-[100px]">
+                  {header}
+                </TableHead>
               ))}
             </TableRow>
           </TableHeader>
