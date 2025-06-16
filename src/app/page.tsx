@@ -1,5 +1,5 @@
 import Hero from "@/components/sections/hero";
-import { Card } from "@/components/ui/card";
+import { Card, CardContent } from "@/components/ui/card";
 import Section from "@/components/ui/section";
 import {
   Table,
@@ -11,6 +11,7 @@ import {
   TableRow,
 } from "@/components/ui/table";
 import { auth } from "@/lib/auth";
+import { Separator } from "@/components/ui/separator";
 import { headers } from "next/headers";
 
 export default async function Index() {
@@ -149,10 +150,33 @@ export default async function Index() {
 
   return (
     <Section className="w-full grid grid-cols-3 gap-6">
-      <Card></Card>
-      <Card></Card>
-      <Card></Card>
-
+      <Card>
+        <CardContent>
+          <h1 className="text-2xl font-bold mb-2">
+            Hey there, {session.user.name}!
+          </h1>
+          <Separator className="mb-2" />
+          <p className="text-muted-foreground">{session.user.email}</p>
+        </CardContent>
+      </Card>
+      <Card>
+        <CardContent>
+          <h2 className="text-lg font-semibold mb-2">Your Rank</h2>
+          <Separator className="mb-2" />
+          <p className="text-2xl font-bold">5th</p>
+          <p className="text-muted-foreground mt-1">
+            You&apos;re in the top 5% of participants!
+          </p>
+        </CardContent>
+      </Card>
+      <Card>
+        <CardContent>
+          <h2 className="text-lg font-semibold mb-2">Your Points</h2>
+          <Separator className="mb-2" />
+          <p className="text-2xl font-bold">1500</p>
+          <p className="text-muted-foreground mt-1">Keep up the great work!</p>
+        </CardContent>
+      </Card>
       <div className="col-span-3">
         <Table className="w-full">
           <TableHeader>
