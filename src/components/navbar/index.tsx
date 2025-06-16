@@ -1,10 +1,8 @@
 import { Menu } from "lucide-react";
-import { ReactNode } from "react";
 
 import { cn } from "@/lib/utils";
 
-import Logo from "../logos/gkss-unisa-logo";
-import { Button, type ButtonProps } from "../ui/button";
+import { Button } from "../ui/button";
 import {
   Navbar as NavbarComponent,
   NavbarLeft,
@@ -13,54 +11,15 @@ import {
 import Navigation from "../ui/navigation";
 import { Sheet, SheetContent, SheetTrigger } from "../ui/sheet";
 import Link from "next/link";
-
-interface NavbarLink {
-  text: string;
-  href: string;
-}
-
-interface NavbarActionProps {
-  text: string;
-  href: string;
-  variant?: ButtonProps["variant"];
-  icon?: ReactNode;
-  iconRight?: ReactNode;
-  isButton?: boolean;
-}
+import config from "./config";
 
 interface NavbarProps {
-  logo?: ReactNode;
-  name?: string;
-  homeUrl?: string;
-  mobileLinks?: NavbarLink[];
-  actions?: NavbarActionProps[];
   showNavigation?: boolean;
-  customNavigation?: ReactNode;
+  customNavigation?: React.ReactNode;
   className?: string;
 }
 
 export default function Navbar({
-  logo = <Logo />,
-  name = "Code Challenges",
-  homeUrl = "/",
-  mobileLinks = [
-    { text: "Getting Started", href: "https://www.launchuicomponents.com/" },
-    { text: "Components", href: "https://www.launchuicomponents.com/" },
-    { text: "Documentation", href: "https://www.launchuicomponents.com/" },
-  ],
-  actions = [
-    {
-      text: "Sign in",
-      href: "/login",
-      isButton: false,
-    },
-    {
-      text: "Sign Up",
-      href: "/register",
-      isButton: true,
-      variant: "default",
-    },
-  ],
   showNavigation = true,
   customNavigation,
   className,
@@ -72,16 +31,16 @@ export default function Navbar({
         <NavbarComponent>
           <NavbarLeft>
             <a
-              href={homeUrl}
+              href={config.homeUrl}
               className="flex items-center gap-2 text-lg sm:text-xl font-bold"
             >
-              {logo}
-              {name}
+              {config.logo}
+              {config.name}
             </a>
             {showNavigation && (customNavigation || <Navigation />)}
           </NavbarLeft>
           <NavbarRight>
-            {actions.map((action, index) =>
+            {config.actions.map((action, index) =>
               action.isButton ? (
                 <Button
                   key={index}
@@ -118,12 +77,12 @@ export default function Navbar({
               <SheetContent side="right">
                 <nav className="grid gap-6 text-lg font-medium">
                   <a
-                    href={homeUrl}
+                    href={config.homeUrl}
                     className="flex items-center gap-2 text-xl font-bold"
                   >
-                    <span>{name}</span>
+                    <span>{config.name}</span>
                   </a>
-                  {mobileLinks.map((link, index) => (
+                  {config.mobileLinks.map((link, index) => (
                     <a
                       key={index}
                       href={link.href}

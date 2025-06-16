@@ -52,11 +52,6 @@ export default function Navigation({
       href: "/docs",
     },
     {
-      title: "Challenges",
-      isLink: true,
-      href: "https://github.com/GKSS-UNISA/code-challenges",
-    },
-    {
       title: "Issues",
       isLink: true,
       href: "https://github.com/GKSS-UNISA/code-challenges/issues",
