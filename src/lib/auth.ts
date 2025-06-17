@@ -14,7 +14,13 @@ export const auth = betterAuth({
   emailAndPassword: {
     enabled: true,
   },
-  plugins: [nextCookies(), apiKey()],
+  plugins: [
+    nextCookies(),
+    apiKey({
+      rateLimit: { maxRequests: 120 },
+      disableSessionForAPIKeys: true,
+    }),
+  ],
 });
 
 export const authClient = createAuthClient({});
