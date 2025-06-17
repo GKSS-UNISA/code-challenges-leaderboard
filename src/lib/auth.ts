@@ -7,11 +7,6 @@ import { nextCookies } from "better-auth/next-js";
 
 const prisma = new PrismaClient();
 
-const API_KEY_HEADER_NAME = process.env.API_KEY_HEADER_NAME;
-if (!API_KEY_HEADER_NAME) {
-  throw new Error("API_KEY_HEADER_NAME environment variable is not set");
-}
-
 export const auth = betterAuth({
   database: prismaAdapter(prisma, {
     provider: "postgresql",
@@ -22,7 +17,6 @@ export const auth = betterAuth({
   plugins: [
     nextCookies(),
     apiKey({
-      apiKeyHeaders: API_KEY_HEADER_NAME,
       rateLimit: { maxRequests: 120 },
     }),
   ],
