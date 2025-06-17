@@ -58,10 +58,10 @@ export default function LoginForm() {
     },
   });
 
-  function handleSubmit(e: React.FormEvent) {
+  async function handleSubmit(e: React.FormEvent) {
     e.preventDefault();
     e.stopPropagation();
-    form.handleSubmit();
+    await form.handleSubmit();
   }
 
   return (
@@ -76,10 +76,7 @@ export default function LoginForm() {
             <div className="mt-4">
               {form.state.errors.map((error, i) => {
                 return (
-                  <p
-                    key={`error_${i}`}
-                    className="text-destructive text-xs mt-2"
-                  >
+                  <p key={`error_${i}`} className="text-destructive text-xs">
                     {error}
                   </p>
                 );
