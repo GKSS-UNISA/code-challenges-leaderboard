@@ -42,4 +42,6 @@ jobs:
         run: vercel build --prod --token=${{ secrets.VERCEL_ACTIONS_ACCESS_TOKEN }}
 
       - name: Deploy project artifacts
-        run: vercel deploy --prebuilt --prod --token=${{ secrets.VERCEL_ACTIONS_ACCESS_TOKEN }}
+        run: |
+          npm run migrate:deploy
+          vercel deploy --prebuilt --prod --token=${{ secrets.VERCEL_ACTIONS_ACCESS_TOKEN }}
