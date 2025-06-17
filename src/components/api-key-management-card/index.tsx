@@ -105,7 +105,7 @@ export default function ApiKeyManagementCard({
                   )}
                 </Button>
               </HoverCardTrigger>
-              <HoverCardContent>
+              <HoverCardContent className="w-80">
                 <p className="text-sm">Copy to clipboard</p>
               </HoverCardContent>
             </HoverCard>
@@ -118,9 +118,17 @@ export default function ApiKeyManagementCard({
       ) : existingKeyId ? (
         <div className="mb-4">
           <p className="mb-2">
-            <strong>API Key:</strong> •••••••••••••••••• (hidden for security)
+            <strong>API Key:</strong>
           </p>
-          <p className="text-sm text-muted-foreground">
+          <div className="flex items-center gap-2 p-2 bg-accent rounded">
+            <code className="flex-1 break-all text-sm p-2">
+              ••••••••••••••••••
+            </code>
+            <p className="text-xs text-amber-300 italic">
+              Hidden for security reasons
+            </p>
+          </div>
+          <p className="text-sm text-muted-foreground mt-2 italic">
             You have an active API key. For security reasons, the full key is
             only shown once when created.
           </p>
