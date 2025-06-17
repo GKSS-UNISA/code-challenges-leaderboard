@@ -8,6 +8,13 @@ import { nextCookies } from "better-auth/next-js";
 const prisma = new PrismaClient();
 
 export const auth = betterAuth({
+  advanced: {
+    cookies: {
+      session_token: {
+        name: "gkss_cck.session_token",
+      },
+    },
+  },
   database: prismaAdapter(prisma, {
     provider: "postgresql",
   }),
@@ -17,6 +24,7 @@ export const auth = betterAuth({
   plugins: [
     nextCookies(),
     apiKey({
+      apiKeyHeaders: process.env.API_KEY_HEADER_NAME,
       rateLimit: { maxRequests: 120 },
     }),
   ],
