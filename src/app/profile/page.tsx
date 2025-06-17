@@ -10,21 +10,8 @@ export default async function Profile() {
     headers: await headers(),
   });
 
-  // Implement a proper unauthorized page
-  if (!session) {
-    return (
-      <Section className="w-full h-[calc(100vh-120px)] flex items-center justify-center">
-        <Card>
-          <CardContent>
-            <h1 className="text-4xl font-bold mb-6">Profile</h1>
-            <p className="text-red-500">
-              You are not authorized to view this page.
-            </p>
-          </CardContent>
-        </Card>
-      </Section>
-    );
-  }
+  // Middleware ensures a session exists
+  if (!session) return;
 
   const { user } = session;
   let apiKeyId: string | null = null;
