@@ -21,12 +21,12 @@ model User {
   email         String
   emailVerified Boolean
   image         String?
+  points        Int       @default(0)
   createdAt     DateTime
   updatedAt     DateTime
   sessions      Session[]
   accounts      Account[]
   apikeys       Apikey[]
-  points        Points[]
 
   @@unique([email])
   @@map("user")
@@ -102,15 +102,4 @@ model Apikey {
   metadata            String?
 
   @@map("apikey")
-}
-
-model Points {
-  id        String   @id
-  userId    String
-  user      User     @relation(fields: [userId], references: [id], onDelete: Cascade)
-  points    Int      @default(0)
-  createdAt DateTime
-  updatedAt DateTime
-
-  @@map("points")
 }
