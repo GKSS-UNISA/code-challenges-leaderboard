@@ -25,8 +25,7 @@ model User {
   updatedAt     DateTime
   sessions      Session[]
   accounts      Account[]
-
-  apikeys Apikey[]
+  apikeys       Apikey[]
 
   @@unique([email])
   @@map("user")
