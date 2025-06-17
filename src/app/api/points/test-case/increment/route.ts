@@ -22,20 +22,13 @@ export async function POST() {
       },
     });
 
-    const user = await prisma.user.findUnique({
+    const _ = await prisma.user.findUnique({
       where: { id: session.user.id },
       select: {
         email: true,
         points: true,
       },
     });
-
-    const safeUser = {
-      email: user?.email,
-      points: String(user?.points),
-    };
-
-    return NextResponse.json({ user: safeUser }, { status: 200 });
   } catch (error) {
     // send to error tracking service
     console.error(error);
