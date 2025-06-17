@@ -40,7 +40,7 @@ export default function RegisterForm() {
 
         if (resp.error) {
           // TODO: send to exception tracking service
-          console.error("Registration error:", resp.error);
+          console.error("Registration error:", resp.error.message);
         }
 
         form.reset();
