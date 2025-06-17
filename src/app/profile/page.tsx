@@ -64,8 +64,6 @@ export default async function Profile() {
         },
       });
 
-      console.log("Generated API Key:", res);
-
       if (!res)
         return {
           success: false,
