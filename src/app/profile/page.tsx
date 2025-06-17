@@ -47,14 +47,13 @@ export default async function Profile() {
       const res = await auth.api.createApiKey({
         body: {
           userId: user.id,
-          prefix: process.env.API_KEY_PREFIX || "api_key",
         },
       });
 
       if (!res)
         return {
           success: false,
-          error: "Couldn't generate API Key. Please try again.",
+          error: "An API Key was not generated. Please try again.",
         };
 
       return {
