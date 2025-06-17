@@ -33,8 +33,9 @@ export default async function Profile() {
     const apiKeys = await auth.api.listApiKeys({
       headers: await headers(),
     });
+
+    // Find the enabled API key for the user
     if (apiKeys && apiKeys.length > 0) {
-      // Find the active API key for the user
       const activeKey = apiKeys.find(
         (key) => key.userId === user.id && key.enabled
       );
