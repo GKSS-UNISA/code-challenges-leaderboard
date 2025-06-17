@@ -12,7 +12,7 @@ export const auth = betterAuth({
   advanced: {
     cookies: {
       session_token: {
-        name: "gkss_cck.session_token",
+        name: process.env.BETTER_AUTH_COOKIE_NAME,
       },
     },
   },
