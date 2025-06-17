@@ -1,0 +1,40 @@
+name: "Continuous Deployment"
+
+on:
+  push:
+    branches:
+      - trunk
+
+env:
+  VERCEL_ORG_ID: ${{ secrets.VERCEL_ORG_ID }}
+  VERCEL_PROJECT_ID: ${{ secrets.VERCEL_PROJECT_ID }}
+
+jobs:
+  deploy-prod:
+    name: Deploy to Production
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 1
+
+      - name: Set up Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version-file: .nvmrc
+          cache: "npm"
+
+      - name: Install dependencies
+        run: |
+          npm ci
+          npm install --global vercel@latest
+
+      - name: Pull Vercel environment information
+        run: vercel pull --yes --environment=production --token=${{ secrets.VERCEL_ACTIONS_ACCESS_TOKEN }}
+
+      - name: Build  project artifacts
+        run: vercel build --prod --token=${{ secrets.VERCEL_ACTIONS_ACCESS_TOKEN }}
+
+      - name: Deploy project artifacts
+        run: vercel deploy --prebuilt --prod --token=${{ secrets.VERCEL_ACTIONS_ACCESS_TOKEN }}
