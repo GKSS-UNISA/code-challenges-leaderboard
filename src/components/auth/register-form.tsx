@@ -40,7 +40,15 @@ export default function RegisterForm() {
 
         if (resp.error) {
           // TODO: send to exception tracking service
-          console.error("Registration error:", resp.error.message);
+          console.error(
+            "Registration error:",
+            resp.error.message ||
+              "An unexpected error occurred. Please try again later."
+          );
+          form.setErrorMap({
+            // @ts-expect-error: allow force setting error message
+            onSubmit: resp.error.message || "An unexpected error occurred.",
+          });
         }
 
         form.reset();
