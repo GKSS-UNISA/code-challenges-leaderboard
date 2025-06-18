@@ -2,7 +2,7 @@ import { type NextRequest, NextResponse } from "next/server";
 import { getCookieCache } from "better-auth/cookies";
 
 export async function middleware(request: NextRequest) {
-  const sessionCookie = getCookieCache(request);
+  const sessionCookie = await getCookieCache(request);
   if (!sessionCookie) {
     return NextResponse.redirect(new URL("/login", request.url));
   }
@@ -20,5 +20,6 @@ export const config = {
      * - favicon.ico, sitemap.xml, robots.txt (metadata files)
      */
     "/((?!api|_next/static|_next/image|favicon.ico|sitemap.xml|robots.txt).*)",
+    "/(home|login|register)",
   ],
 };
