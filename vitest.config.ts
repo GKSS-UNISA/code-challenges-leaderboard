@@ -17,6 +17,7 @@ export default defineConfig({
         "**/.{next,vercel,husky,github}/**",
         "**/{prisma,public}/**",
         "**/next.config.*",
+        "**/src/generated/**",
       ],
     },
     exclude: [
