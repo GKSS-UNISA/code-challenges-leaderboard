@@ -9,3 +9,17 @@ vi.mock("next/link", () => ({
     </a>
   ),
 }));
+
+vi.mock("next/image", () => ({
+  __esModule: true,
+  default: ({ src, alt, width, height, className }: any) => (
+    <img
+      src={src}
+      alt={alt}
+      width={width}
+      height={height}
+      className={className}
+      data-testid="next-image"
+    />
+  ),
+}));
