@@ -149,8 +149,14 @@ export default async function Index() {
   }
 
   return (
-    <Section className="w-full grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-6">
-      <Card className="col-span-1 sm:col-span-2 md:col-span-1">
+    <Section
+      className="w-full grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-6"
+      data-testid="dashboard"
+    >
+      <Card
+        className="col-span-1 sm:col-span-2 md:col-span-1"
+        data-testid="user-card"
+      >
         <CardContent>
           <h1 className="text-lg font-bold mb-2">
             Hey there, {session.user.name}!
@@ -160,7 +166,7 @@ export default async function Index() {
         </CardContent>
       </Card>
 
-      <Card>
+      <Card data-testid="rank-card">
         <CardContent>
           <h2 className="text-lg font-semibold mb-2">Your Rank</h2>
           <Separator className="mb-2" />
@@ -171,7 +177,7 @@ export default async function Index() {
         </CardContent>
       </Card>
 
-      <Card>
+      <Card data-testid="points-card">
         <CardContent>
           <h2 className="text-lg font-semibold mb-2">Your Points</h2>
           <Separator className="mb-2" />
@@ -180,23 +186,30 @@ export default async function Index() {
         </CardContent>
       </Card>
 
-      <div className="col-span-full">
-        <Table className="w-full">
-          <TableCaption className="w-full text-center">
+      <div className="col-span-full" data-testid="participants-table-section">
+        <Table className="w-full" data-testid="participants-table">
+          <TableCaption
+            className="w-full text-center"
+            data-testid="table-caption"
+          >
             List of all participants and their points
           </TableCaption>
-          <TableHeader>
+          <TableHeader data-test_id="table-header">
             <TableRow>
               {tableHeaders.map((header, i) => (
-                <TableHead key={i} className="w-[100px]">
+                <TableHead
+                  key={i}
+                  className="w-[100px]"
+                  data-testid={`table-header-cell}`}
+                >
                   {header}
                 </TableHead>
               ))}
             </TableRow>
           </TableHeader>
-          <TableBody>
+          <TableBody data-testid="table-body">
             {tableData.map((row) => (
-              <TableRow key={row.id}>
+              <TableRow key={row.id} data-testid={`table-row-data-row`}>
                 <TableCell className="font-medium">{row.id}</TableCell>
                 <TableCell>{row.name}</TableCell>
                 <TableCell>{row.email}</TableCell>
