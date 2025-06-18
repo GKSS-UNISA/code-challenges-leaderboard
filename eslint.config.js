@@ -25,6 +25,12 @@ const eslintConfig = [
         },
       },
       {
+        files: ["**/*.test.ts", "**/*.test.tsx"],
+        rules: {
+          "@typescript-eslint/ban-ts-comment": "off",
+        },
+      },
+      {
         files: ["**/*.js", "**/*.jsx"],
         rules: {
           "no-console": "warn",
