@@ -1,6 +1,7 @@
 "use client";
 
 import * as React from "react";
+import { Geist_Mono } from "next/font/google";
 import { Button } from "@/components/ui/button";
 import { Separator } from "@/components/ui/separator";
 import { Check, Copy } from "lucide-react";
@@ -9,6 +10,11 @@ import {
   HoverCardTrigger,
   HoverCardContent,
 } from "../ui/hover-card";
+
+const geistMono = Geist_Mono({
+  variable: "--font-geist-mono",
+  subsets: ["latin"],
+});
 
 type AccountSettingsProps = {
   existingKeyId: string | null;
@@ -92,7 +98,9 @@ export default function ApiKeyManagementCard({
             <strong>Your New API Key:</strong>
           </p>
           <div className="flex items-center gap-2 p-2 bg-accent rounded">
-            <code className="flex-1 break-all text-sm p-2">
+            <code
+              className={`${geistMono.className} flex-1 break-all text-sm p-2`}
+            >
               {genState.newApiKey}
             </code>
             <HoverCard>
