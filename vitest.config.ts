@@ -10,8 +10,11 @@ export default defineConfig({
   plugins: [tsconfigPaths(), react()],
   test: {
     environment: "jsdom",
+    globals: true,
+    setupFiles: ["vitest.setup.ts"],
     coverage: {
       reporter: "html",
+      include: ["src/**/*.{ts,tsx}"],
       exclude: [
         ...coverageConfigDefaults.exclude,
         "**/.{next,vercel,husky,github}/**",

@@ -8,6 +8,12 @@ const eslintConfig = [
   ...compat.config({
     overrides: [
       {
+        files: ["vitest.setup.ts"],
+        rules: {
+          "@typescript-eslint/ban-ts-comment": "off",
+        },
+      },
+      {
         files: ["**/*.ts", "**/*.tsx"],
         rules: {
           "@typescript-eslint/no-unused-vars": [
