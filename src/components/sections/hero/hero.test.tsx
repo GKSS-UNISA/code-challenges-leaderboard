@@ -1,9 +1,5 @@
 import { screen } from "@testing-library/react";
 import Hero from ".";
-import { Badge } from "@/components/ui/badge";
-import Link from "next/link";
-import { ArrowRightIcon } from "lucide-react";
-import { GitHubLogoIcon } from "@radix-ui/react-icons";
 
 vi.mock("@/lib/utils", () => ({
   cn: (...args: string[]) => args.join(" "),
