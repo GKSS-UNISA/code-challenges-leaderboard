@@ -27,8 +27,7 @@
     "**/*.ts",
     "**/*.tsx",
     ".next/types/**/*.ts",
-    "knip.config.js",
-    "jest.setup.js"
+    "knip.config.js"
   ],
   "exclude": ["node_modules"]
 }
