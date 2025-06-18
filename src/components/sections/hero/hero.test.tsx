@@ -22,15 +22,6 @@ vi.mock("@/components/ui/section", () => ({
   ),
 }));
 
-vi.mock("next/link", () => ({
-  __esModule: true,
-  default: ({ children, href }: any) => (
-    <a href={href} data-testid="link">
-      {children}
-    </a>
-  ),
-}));
-
 vi.mock("@/components/sections/hero/config", () => ({
   __esModule: true,
   default: {
