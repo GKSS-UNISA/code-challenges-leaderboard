@@ -1,0 +1,34 @@
+# Get the current branch name
+BRANCH_NAME=$(git symbolic-ref --short HEAD)
+
+# Check if origin/BRANCH_NAME exists
+if git ls-remote --heads origin "$BRANCH_NAME" | grep -q "$BRANCH_NAME"; then
+  echo "Remote branch 'origin/$BRANCH_NAME' exists"
+
+  # Get changed files between origin/<branch-name> and current HEAD
+  # Only include TypeScript files
+  CHANGED_FILES=$(git diff --name-only origin/"$BRANCH_NAME"..HEAD | grep -E '\.(ts|tsx|test\.ts|test\.tsx)$' || true)
+
+  if [ -n "$CHANGED_FILES" ]; then
+    # Run vitest with the related test pattern
+    # The --related flag runs tests related to the changed files
+    npx vitest related $CHANGED_FILES
+
+    if [ $? -ne 0 ]; then
+        echo "Tests failed. Please fix the issues before pushing."
+      exit 1
+    fi
+  else
+    echo "No TypeScript files changed. Skipping tests."
+  fi
+else
+  echo "Remote branch 'origin/$BRANCH_NAME' not found. Running all tests."
+
+  # Run all tests
+  npx vitest run
+
+  if [ $? -ne 0 ]; then
+    echo "Tests failed. Please fix the issues before pushing."
+    exit 1
+  fi
+fi
