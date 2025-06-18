@@ -5,6 +5,9 @@ on:
     branches:
       - trunk
 
+permissions:
+  contents: read
+
 jobs:
   lint:
     runs-on: ubuntu-latest
@@ -31,9 +34,9 @@ jobs:
     container: node:20-bookworm-slim
     env:
       DATABASE_URL: postgresql://postgres:postgres@postgres:5432/postgres
-      BETTER_AUTH_SECRET_KEY: F2uYYKiQPx7AlB6_lssAO
+      BETTER_AUTH_SECRET_KEY: test_auth_secret_key
       BETTER_AUTH_URL: http://localhost:3000
-      BETTER_AUTH_COOKIE_NAME: gkss-cck.session_token
+      BETTER_AUTH_COOKIE_NAME: test.session_token
       API_KEY_HEADER_NAME: Authorization
       POINTS_INCREMENT: 5
     services:
@@ -66,15 +69,18 @@ jobs:
     needs:
       - lint
       - test
+    permissions:
+      deployments: write
     env:
       DATABASE_URL: ${{ secrets.DATABASE_URL }}
       VERCEL_ORG_ID: ${{ secrets.VERCEL_ORG_ID }}
       VERCEL_PROJECT_ID: ${{ secrets.VERCEL_PROJECT_ID }}
     steps:
       - name: Install dependencies
-        run: |
-          npm ci --include prod --include peer
-          npm i -g vercel@latest
+        run: npm ci --include prod
+
+      - name: Install global dependencies
+        run: npm i -g vercel@latest
 
       - name: Pull Vercel environment information
         run: vercel pull --yes --environment=production --token=${{ secrets.VERCEL_ACTIONS_ACCESS_TOKEN }}
