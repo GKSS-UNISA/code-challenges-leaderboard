@@ -1,7 +1,5 @@
 import { Menu } from "lucide-react";
-
 import { cn } from "@/lib/utils";
-
 import { Button } from "../ui/button";
 import {
   Navbar as NavbarComponent,
@@ -30,13 +28,13 @@ export default function Navbar({
       <div className="max-w-container relative mx-auto">
         <NavbarComponent>
           <NavbarLeft>
-            <a
+            <Link
               href={config.homeUrl}
               className="flex items-center gap-2 text-lg sm:text-xl font-bold"
             >
               {config.logo}
               {config.name}
-            </a>
+            </Link>
             {showNavigation && (customNavigation || <Navigation />)}
           </NavbarLeft>
           <NavbarRight>
@@ -76,12 +74,12 @@ export default function Navbar({
               </SheetTrigger>
               <SheetContent side="right">
                 <nav className="grid gap-6 text-lg font-medium">
-                  <a
+                  <Link
                     href={config.homeUrl}
                     className="flex items-center gap-2 text-xl font-bold"
                   >
                     <span>{config.name}</span>
-                  </a>
+                  </Link>
                   {config.mobileLinks.map((link, index) => (
                     <a
                       key={index}
