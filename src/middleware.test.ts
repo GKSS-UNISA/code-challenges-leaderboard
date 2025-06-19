@@ -1,15 +1,42 @@
+import { NextRequest } from "next/server";
 import { middleware, config } from "./middleware";
+import { Mock } from "vitest";
 
 vi.mock("better-auth/cookies", () => ({
   getCookieCache: vi.fn(),
 }));
 
+vi.mock("next/server", async () => {
+  const actual = await vi.importActual("next/server");
+  return {
+    ...actual,
+    NextResponse: {
+      redirect: vi.fn().mockImplementation((url) => {
+        return {
+          status: 307,
+          headers: new Headers({ Location: url.toString() }),
+        };
+      }),
+      next: vi.fn().mockImplementation(() => {
+        return {
+          status: 200,
+          headers: new Headers(),
+        };
+      }),
+    },
+  };
+});
+
 describe("Middleware", () => {
+  beforeEach(() => {
+    vi.clearAllMocks();
+  });
+
   it("should redirect to /login if session cookie is not present", async () => {
     const { getCookieCache } = await import("better-auth/cookies");
-    getCookieCache.mockResolvedValue(null);
+    (getCookieCache as Mock).mockResolvedValue(null);
 
-    const request = new Request("http://localhost:3000/protected");
+    const request = new NextRequest("http://localhost:3000/protected");
     const response = await middleware(request);
 
     expect(response.status).toBe(307);
@@ -20,9 +47,11 @@ describe("Middleware", () => {
 
   it("should allow request to proceed if session cookie is present", async () => {
     const { getCookieCache } = await import("better-auth/cookies");
-    getCookieCache.mockResolvedValue({ session: "valid-session" });
+    (getCookieCache as Mock).mockResolvedValue({
+      session: "valid-session",
+    });
 
-    const request = new Request("http://localhost:3000/protected");
+    const request = new NextRequest("http://localhost:3000/protected");
     const response = await middleware(request);
 
     expect(response.status).toBe(200);

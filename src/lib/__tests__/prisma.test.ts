@@ -1,4 +1,3 @@
-import { test, expect, vi } from "vitest";
 import prisma from "../prisma";
 
 vi.mock("@/generated/prisma", () => ({

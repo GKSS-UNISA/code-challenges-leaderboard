@@ -1,4 +1,3 @@
-import { describe, test, expect, vi } from "vitest";
 import { auth, authClient } from "../auth";
 
 test("should return a valid auth object", () => {
