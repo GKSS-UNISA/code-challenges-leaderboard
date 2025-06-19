@@ -2,6 +2,10 @@ import { type NextRequest, NextResponse } from "next/server";
 import { getCookieCache } from "better-auth/cookies";
 
 export async function middleware(request: NextRequest) {
+  // Use cookie cache instead of getSessionCookie
+  // to check if the user is authenticated
+  //
+  // there seem to be issues with getSessionCookie
   const sessionCookie = await getCookieCache(request);
   if (!sessionCookie) {
     return NextResponse.redirect(new URL("/login", request.url));
