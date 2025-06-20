@@ -2,6 +2,7 @@ import ApiKeyManagementCard from "@/components/api-key-management-card";
 import { Card, CardContent } from "@/components/ui/card";
 import Section from "@/components/ui/section";
 import { Separator } from "@/components/ui/separator";
+import { generateNewKeyAction } from "./actions";
 import { auth } from "@/lib/auth";
 import { headers } from "next/headers";
 
@@ -36,38 +37,10 @@ export default async function Profile() {
     console.error(error);
   }
 
-  async function generateNewKeyAction(): Promise<{
-    success: boolean;
-    apiKey?: string;
-    error?: string;
-  }> {
+  async function handleGenerateNewKey() {
     "use server";
 
-    try {
-      const res = await auth.api.createApiKey({
-        body: {
-          userId: user.id,
-        },
-      });
-
-      if (!res)
-        return {
-          success: false,
-          error: "An API Key was not generated. Please try again.",
-        };
-
-      return {
-        success: true,
-        apiKey: res.key,
-      };
-    } catch (error) {
-      // send to error tracking service
-      console.error("Error generating API key:", error);
-      return {
-        success: false,
-        error: "An unexpected error occurred. Please try again later.",
-      };
-    }
+    return generateNewKeyAction(user);
   }
 
   return (
@@ -93,7 +66,7 @@ export default async function Profile() {
         <CardContent>
           <ApiKeyManagementCard
             existingKeyId={apiKeyId}
-            generateNewKeyAction={generateNewKeyAction}
+            generateNewKeyAction={handleGenerateNewKey}
           />
         </CardContent>
       </Card>
