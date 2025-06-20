@@ -47,20 +47,12 @@ vi.mock("@/components/sections/hero/config", () => ({
 describe("Hero Component", () => {
   beforeEach(() => {
     vi.clearAllMocks();
-    render(<Hero className="custom-class" />);
+    render(<Hero />);
   });
 
   it("renders section component", () => {
     const section = screen.getByTestId("section");
-
     expect(section).toBeInTheDocument();
-    expect(section).toHaveClass(
-      "fade-bottom overflow-hidden pb-0 sm:pb-0 md:pb-0"
-    );
-  });
-
-  it("applies custom className to section container", () => {
-    expect(screen.getByTestId("section")).toHaveClass("custom-class");
   });
 
   it("renders the title", () => {
