@@ -1,22 +1,11 @@
-import { cn } from "@/lib/utils";
-
 import { Button } from "@/components/ui/button";
 import Section from "@/components/ui/section";
 import config from "@/components/sections/hero/config";
 import Link from "next/link";
 
-interface HeroProps {
-  className?: string;
-}
-
-export default function Hero({ className }: HeroProps) {
+export default function Hero() {
   return (
-    <Section
-      className={cn(
-        "fade-bottom overflow-hidden pb-0 sm:pb-0 md:pb-0",
-        className
-      )}
-    >
+    <Section className="fade-bottom overflow-hidden pb-0 sm:pb-0 md:pb-0 h-[calc(100vh-120px)] flex flex-col items-center justify-center max-w-7xl mx-auto">
       <div className="max-w-container mx-auto flex flex-col gap-12 pt-16 sm:gap-24">
         <div className="flex flex-col items-center gap-4 text-center sm:gap-6">
           {config.badge !== false && config.badge}
