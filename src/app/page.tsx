@@ -1,4 +1,3 @@
-import Hero from "@/components/sections/hero";
 import { Card, CardContent } from "@/components/ui/card";
 import Section from "@/components/ui/section";
 import {
@@ -144,10 +143,6 @@ export default async function Index() {
     },
   ];
 
-  if (!session) {
-    return <Hero className="h-[calc(100vh-120px)]" />;
-  }
-
   return (
     <Section
       className="w-full grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-6"
@@ -159,10 +154,10 @@ export default async function Index() {
       >
         <CardContent>
           <h1 className="text-lg font-bold mb-2">
-            Hey there, {session.user.name}!
+            Hey there, {session?.user.name}!
           </h1>
           <Separator className="mb-2" />
-          <p className="text-muted-foreground">{session.user.email}</p>
+          <p className="text-muted-foreground">{session?.user.email}</p>
         </CardContent>
       </Card>
 
