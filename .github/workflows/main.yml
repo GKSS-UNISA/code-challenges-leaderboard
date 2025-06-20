@@ -66,6 +66,8 @@ jobs:
     steps:
       - name: Prepare Node.js Environment
         uses: ./.github/actions/prepare-node.yml
+        with:
+          prod: 1
 
       - name: Install global dependencies
         run: npm i -g vercel@latest
