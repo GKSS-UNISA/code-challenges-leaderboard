@@ -10,6 +10,7 @@ import Navigation from "../ui/navigation";
 import { Sheet, SheetContent, SheetTrigger } from "../ui/sheet";
 import Link from "next/link";
 import config from "./config";
+import ButtonBox from "../button-box";
 
 interface NavbarProps {
   showNavigation?: boolean;
@@ -17,7 +18,7 @@ interface NavbarProps {
   className?: string;
 }
 
-export default function Navbar({
+export default async function Navbar({
   showNavigation = true,
   customNavigation,
   className,
@@ -38,29 +39,7 @@ export default function Navbar({
             {showNavigation && (customNavigation || <Navigation />)}
           </NavbarLeft>
           <NavbarRight>
-            {config.actions.map((action, index) =>
-              action.isButton ? (
-                <Button
-                  key={index}
-                  variant={action.variant || "default"}
-                  asChild
-                >
-                  <a href={action.href}>
-                    {action.icon}
-                    {action.text}
-                    {action.iconRight}
-                  </a>
-                </Button>
-              ) : (
-                <Link
-                  key={index}
-                  href={action.href}
-                  className="hidden text-sm md:block"
-                >
-                  {action.text}
-                </Link>
-              )
-            )}
+            <ButtonBox />
             <Sheet>
               <SheetTrigger asChild>
                 <Button
