@@ -12,6 +12,10 @@ jobs:
   lint:
     runs-on: ubuntu-latest
     steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 1
       - name: Prepare Node.js Environment
         uses: ./.github/actions/prepare-node.yml
 
@@ -43,6 +47,10 @@ jobs:
           --health-timeout 5s
           --health-retries 5
     steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 1
       - name: Prepare Node.js Environment
         uses: ./.github/actions/prepare-node.yml
 
@@ -64,6 +72,10 @@ jobs:
       VERCEL_ORG_ID: ${{ secrets.VERCEL_ORG_ID }}
       VERCEL_PROJECT_ID: ${{ secrets.VERCEL_PROJECT_ID }}
     steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 1
       - name: Prepare Node.js Environment
         uses: ./.github/actions/prepare-node.yml
         with:
