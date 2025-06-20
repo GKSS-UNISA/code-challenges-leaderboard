@@ -23,10 +23,11 @@ interface ComponentItem {
   description: string;
 }
 
-interface MenuItem {
+export interface MenuItem {
   title: string;
   href?: string;
   isLink?: boolean;
+  needsAuth?: boolean;
   content?: ReactNode;
 }
 
@@ -50,11 +51,13 @@ export default function Navigation({
       title: "Docs",
       isLink: true,
       href: "/docs",
+      needsAuth: false,
     },
     {
       title: "Issues",
       isLink: true,
       href: "https://github.com/GKSS-UNISA/code-challenges/issues",
+      needsAuth: false,
     },
   ],
   components = [],
@@ -69,7 +72,11 @@ export default function Navigation({
         {menuItems.map((item, index) => (
           <NavigationMenuItem key={index}>
             {item.isLink ? (
-              <Link href={item.href || ""} passHref>
+              <Link
+                href={item.href || ""}
+                className={item.needsAuth ? "" : "hidden"}
+                passHref
+              >
                 <NavigationMenuLink className={navigationMenuTriggerStyle()}>
                   {item.title}
                 </NavigationMenuLink>

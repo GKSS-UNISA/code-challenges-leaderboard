@@ -36,7 +36,10 @@ export default async function Navbar({
               {config.logo}
               {config.name}
             </Link>
-            {showNavigation && (customNavigation || <Navigation />)}
+            {showNavigation &&
+              (customNavigation || (
+                <Navigation menuItems={config.mobileLinks} />
+              ))}
           </NavbarLeft>
           <NavbarRight>
             <ButtonBox />
@@ -65,7 +68,7 @@ export default async function Navbar({
                       href={link.href}
                       className="text-muted-foreground hover:text-foreground"
                     >
-                      {link.text}
+                      {link.title}
                     </a>
                   ))}
                 </nav>

@@ -1,8 +1,8 @@
 import { ReactNode } from "react";
 import Logo from "../logos/gkss-unisa-logo";
+import type { MenuItem } from "../ui/navigation";
 
-interface NavbarLink {
-  text: string;
+interface NavbarLink extends MenuItem {
   href: string;
 }
 
@@ -19,10 +19,12 @@ const config: ConfigProps = {
   name: "Code Challenges",
   homeUrl: "/",
   mobileLinks: [
-    { text: "Docs", href: "/docs" },
+    { title: "Docs", href: "/docs", isLink: true, needsAuth: false },
     {
-      text: "Issues",
+      title: "Issues",
       href: "https://github.com/GKSS-UNISA/code-challenges/issues",
+      isLink: true,
+      needsAuth: false,
     },
   ],
 };
