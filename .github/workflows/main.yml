@@ -12,19 +12,8 @@ jobs:
   lint:
     runs-on: ubuntu-latest
     steps:
-      - name: Checkout code
-        uses: actions/checkout@v4
-        with:
-          fetch-depth: 1
-
-      - name: Set up Node.js
-        uses: actions/setup-node@v4
-        with:
-          node-version-file: .nvmrc
-          cache: "npm"
-
-      - name: Install dependencies
-        run: npm ci
+      - name: Prepare Node.js Environment
+        uses: ./.github/actions/prepare-node.yml
 
       - name: Run lint
         run: npm run lint
@@ -41,7 +30,7 @@ jobs:
       POINTS_INCREMENT: 5
     services:
       postgres:
-        image: postgres:alpine
+        image: postgres:15-alpine
         env:
           POSTGRES_PASSWORD: postgres
           POSTGRES_USER: postgres
@@ -54,13 +43,8 @@ jobs:
           --health-timeout 5s
           --health-retries 5
     steps:
-      - name: Checkout code
-        uses: actions/checkout@v4
-        with:
-          fetch-depth: 1
-
-      - name: Install dependencies
-        run: npm ci
+      - name: Prepare Node.js Environment
+        uses: ./.github/actions/prepare-node.yml
 
       - name: Run migrations
         run: npm run migrate:deploy
@@ -80,8 +64,8 @@ jobs:
       VERCEL_ORG_ID: ${{ secrets.VERCEL_ORG_ID }}
       VERCEL_PROJECT_ID: ${{ secrets.VERCEL_PROJECT_ID }}
     steps:
-      - name: Install dependencies
-        run: npm ci --include prod
+      - name: Prepare Node.js Environment
+        uses: ./.github/actions/prepare-node.yml
 
       - name: Install global dependencies
         run: npm i -g vercel@latest
