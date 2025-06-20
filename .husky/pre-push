@@ -25,7 +25,7 @@ else
   echo "Remote branch 'origin/$BRANCH_NAME' not found. Running all tests."
 
   # Run all tests
-  npx vitest run
+  npm test -- run
 
   if [ $? -ne 0 ]; then
     echo "Tests failed. Please fix the issues before pushing."
