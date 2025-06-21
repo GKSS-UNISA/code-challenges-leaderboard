@@ -52,7 +52,7 @@ export default function RegisterForm() {
         }
 
         form.reset();
-        router.push("/login");
+        router.replace("/");
       } catch (_error: any) {
         // TODO: send error to exception tracking service
         console.error(_error);

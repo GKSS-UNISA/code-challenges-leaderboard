@@ -26,7 +26,7 @@ export default function ButtonBox() {
     await authClient.signOut({
       fetchOptions: {
         onSuccess: () => {
-          router.push("/home");
+          router.replace("/home");
         },
       },
     });
