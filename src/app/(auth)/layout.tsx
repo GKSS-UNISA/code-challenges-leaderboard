@@ -7,7 +7,7 @@ interface AuthLayoutProps {
 
 export default function AuthLayout({ children }: AuthLayoutProps) {
   return (
-    <Section className="h-[calc(100vh-120px)] flex flex-col items-center w-full">
+    <Section className="h-[calc(100vh-120px)] flex flex-col items-center justify-center max-w-7xl mx-auto">
       {children}
     </Section>
   );
