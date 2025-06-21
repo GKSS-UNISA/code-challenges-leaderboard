@@ -1,12 +1,12 @@
 import { ReactNode } from "react";
 import Logo from "../logos/gkss-unisa-logo";
-import type { MenuItem } from "../ui/navigation";
+import type { MenuItem, NavigationProps } from "../ui/navigation";
 
 interface NavbarLink extends MenuItem {
   href: string;
 }
 
-interface ConfigProps {
+interface ConfigProps extends NavigationProps {
   logo?: ReactNode;
   name: string;
   homeUrl: string;
@@ -19,14 +19,14 @@ const config: ConfigProps = {
   name: "Code Challenges",
   homeUrl: "/",
   mobileLinks: [
-    { title: "Docs", href: "/docs", isLink: true, needsAuth: false },
+    { title: "Docs", href: "/docs", isLink: true },
     {
       title: "Issues",
       href: "https://github.com/GKSS-UNISA/code-challenges/issues",
       isLink: true,
-      needsAuth: false,
     },
   ],
+  protectedMenuItems: [{ title: "Profile", href: "/profile", isLink: true }],
 };
 
 export default config;

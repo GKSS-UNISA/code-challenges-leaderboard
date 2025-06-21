@@ -1,3 +1,6 @@
+"use client";
+
+import * as React from "react";
 import { Menu } from "lucide-react";
 import { cn } from "@/lib/utils";
 import { Button } from "../ui/button";
@@ -11,6 +14,8 @@ import { Sheet, SheetContent, SheetTrigger } from "../ui/sheet";
 import Link from "next/link";
 import config from "./config";
 import ButtonBox from "../button-box";
+import useAuth from "@/hooks/useAuth";
+import { authClient } from "@/lib/auth";
 
 interface NavbarProps {
   showNavigation?: boolean;
@@ -18,11 +23,16 @@ interface NavbarProps {
   className?: string;
 }
 
-export default async function Navbar({
+export default function Navbar({
   showNavigation = true,
   customNavigation,
   className,
 }: NavbarProps) {
+  const session = authClient.useSession();
+
+  const { isAuthenticated } = useAuth(session?.data?.session);
+  console.log("isAuthenticated:", isAuthenticated);
+
   return (
     <header className={cn("sticky top-0 z-50 -mb-4 px-4 pb-4", className)}>
       <div className="fade-bottom bg-background/15 absolute left-0 h-24 w-full backdrop-blur-lg"></div>
@@ -38,7 +48,12 @@ export default async function Navbar({
             </Link>
             {showNavigation &&
               (customNavigation || (
-                <Navigation menuItems={config.mobileLinks} />
+                <Navigation
+                  menuItems={config.mobileLinks}
+                  protectedMenuItems={
+                    isAuthenticated ? config.protectedMenuItems : undefined
+                  }
+                />
               ))}
           </NavbarLeft>
           <NavbarRight>
@@ -62,14 +77,24 @@ export default async function Navbar({
                   >
                     <span>{config.name}</span>
                   </Link>
+                  {isAuthenticated &&
+                    config.protectedMenuItems?.map((link, index) => (
+                      <Link
+                        key={`${link?.href}-${index}`}
+                        href={link.href || "#"}
+                        className="text-muted-foreground hover:text-foreground"
+                      >
+                        {link.title}
+                      </Link>
+                    ))}
                   {config.mobileLinks.map((link, index) => (
-                    <a
+                    <Link
                       key={index}
                       href={link.href}
                       className="text-muted-foreground hover:text-foreground"
                     >
                       {link.title}
-                    </a>
+                    </Link>
                   ))}
                 </nav>
               </SheetContent>

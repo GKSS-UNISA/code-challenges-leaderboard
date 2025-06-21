@@ -3,10 +3,8 @@
 import Link from "next/link";
 import * as React from "react";
 import { ReactNode } from "react";
-
 import { cn } from "@/lib/utils";
-
-import LaunchUI from "../logos/gkss-unisa-logo";
+import GkssUnisaLogo from "../logos/gkss-unisa-logo";
 import {
   NavigationMenu,
   NavigationMenuContent,
@@ -27,12 +25,12 @@ export interface MenuItem {
   title: string;
   href?: string;
   isLink?: boolean;
-  needsAuth?: boolean;
   content?: ReactNode;
 }
 
-interface NavigationProps {
+export interface NavigationProps {
   menuItems?: MenuItem[];
+  protectedMenuItems?: MenuItem[];
   components?: ComponentItem[];
   logo?: ReactNode;
   logoTitle?: string;
@@ -46,22 +44,10 @@ interface NavigationProps {
 }
 
 export default function Navigation({
-  menuItems = [
-    {
-      title: "Docs",
-      isLink: true,
-      href: "/docs",
-      needsAuth: false,
-    },
-    {
-      title: "Issues",
-      isLink: true,
-      href: "https://github.com/GKSS-UNISA/code-challenges/issues",
-      needsAuth: false,
-    },
-  ],
+  menuItems = [],
   components = [],
-  logo = <LaunchUI />,
+  protectedMenuItems,
+  logo = <GkssUnisaLogo />,
   logoTitle = "Code Challenges Leaderboard",
   logoDescription = "Landing page template built with React, Shadcn/ui and Tailwind that you can copy/paste into your project.",
   logoHref = "/",
@@ -69,14 +55,18 @@ export default function Navigation({
   return (
     <NavigationMenu className="hidden md:flex">
       <NavigationMenuList>
+        {protectedMenuItems &&
+          protectedMenuItems.map((item, i) => (
+            <Link href={item.href || ""} key={`${item.href}-${i}`} passHref>
+              <NavigationMenuLink className={navigationMenuTriggerStyle()}>
+                {item.title}
+              </NavigationMenuLink>
+            </Link>
+          ))}
         {menuItems.map((item, index) => (
           <NavigationMenuItem key={index}>
             {item.isLink ? (
-              <Link
-                href={item.href || ""}
-                className={item.needsAuth ? "" : "hidden"}
-                passHref
-              >
+              <Link href={item.href || ""} passHref>
                 <NavigationMenuLink className={navigationMenuTriggerStyle()}>
                   {item.title}
                 </NavigationMenuLink>
@@ -89,18 +79,18 @@ export default function Navigation({
                     <ul className="grid gap-3 p-4 md:w-[400px] lg:w-[500px] lg:grid-cols-[.75fr_1fr]">
                       <li className="row-span-3">
                         <NavigationMenuLink asChild>
-                          <a
+                          <Link
                             className="from-muted/30 to-muted/10 flex h-full w-full flex-col justify-end rounded-md bg-linear-to-b p-6 no-underline outline-hidden select-none focus:shadow-md"
                             href={logoHref}
                           >
                             {logo}
-                            <div className="mt-4 mb-2 text-lg font-medium">
+                            <span className="mt-4 mb-2 text-lg font-medium">
                               {logoTitle}
-                            </div>
+                            </span>
                             <p className="text-muted-foreground text-sm leading-tight">
                               {logoDescription}
                             </p>
-                          </a>
+                          </Link>
                         </NavigationMenuLink>
                       </li>
                     </ul>
@@ -138,19 +128,20 @@ function ListItem({
   return (
     <li>
       <NavigationMenuLink asChild>
-        <a
+        <Link
           data-slot="list-item"
           className={cn(
             "hover:bg-accent hover:text-accent-foreground focus:bg-accent focus:text-accent-foreground block space-y-1 rounded-md p-3 leading-none no-underline outline-hidden transition-colors select-none",
             className
           )}
+          href={props.href || "#"}
           {...props}
         >
           <div className="text-sm leading-none font-medium">{title}</div>
           <p className="text-muted-foreground line-clamp-2 text-sm leading-snug">
             {children}
           </p>
-        </a>
+        </Link>
       </NavigationMenuLink>
     </li>
   );

@@ -36,11 +36,11 @@ export default function ButtonBox() {
     <>
       {!session && (
         <>
-          <Button asChild>
+          <Button asChild variant="ghost">
             <Link href="/login">Sign In</Link>
           </Button>
           <Button asChild>
-            <Link href="/register">Sign Up</Link>
+            <Link href="/register">Get Started</Link>
           </Button>
         </>
       )}
@@ -53,7 +53,7 @@ export default function ButtonBox() {
             </Button>
           ) : (
             <>
-              <Button variant="secondary" onClick={handleSignOut}>
+              <Button variant="destructive" onClick={handleSignOut}>
                 Sign Out
               </Button>
               <Button asChild>
