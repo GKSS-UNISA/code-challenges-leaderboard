@@ -29,9 +29,7 @@ export default function Navbar({
   className,
 }: NavbarProps) {
   const session = authClient.useSession();
-
   const { isAuthenticated } = useAuth(session?.data?.session);
-  console.log("isAuthenticated:", isAuthenticated);
 
   return (
     <header className={cn("sticky top-0 z-50 -mb-4 px-4 pb-4", className)}>

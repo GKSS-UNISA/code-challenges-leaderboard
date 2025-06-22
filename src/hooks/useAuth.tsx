@@ -1,7 +1,7 @@
 "use client";
 
 import * as React from "react";
-import { type Session } from "better-auth";
+import type { Session } from "better-auth";
 
 export default function useAuth(session?: Session) {
   const [isAuthenticated, setIsAuthenticated] = React.useState<boolean>(false);
