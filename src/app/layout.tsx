@@ -18,6 +18,13 @@ export default function RootLayout({
 }: Readonly<{
   children: React.ReactNode;
 }>) {
+  console.log(process.env.DATABASE_URL);
+  console.log(process.env.BETTER_AUTH_SECRET);
+  console.log(process.env.BETTER_AUTH_URL);
+  console.log(process.env.BETTER_AUTH_COOKIE_NAME);
+  console.log(process.env.API_KEY_HEADER_NAME);
+  console.log(process.env.POINTS_INCREMENT);
+
   return (
     <html lang="en" className="dark">
       <body className={`${geistSans.variable} antialiased`}>

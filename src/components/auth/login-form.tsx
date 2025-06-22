@@ -28,7 +28,7 @@ export default function LoginForm() {
     },
     onSubmit: async ({ value }) => {
       try {
-        const { error } = await authClient.signIn.email({
+        const { error, data } = await authClient.signIn.email({
           email: value.email,
           password: value.password,
         });
@@ -40,13 +40,11 @@ export default function LoginForm() {
           });
 
           // reset email & password fields
-          form.resetField("email");
           form.resetField("password");
           return;
         }
 
-        form.reset();
-        router.push("/");
+        if (data?.redirect) router.replace("/");
       } catch (_error: any) {
         // TODO: send error to exception tracking service
         console.error(_error);
