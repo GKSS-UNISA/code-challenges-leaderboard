@@ -1,9 +1,12 @@
 import { NextRequest } from "next/server";
 import { middleware, config } from "./middleware";
-import { Mock } from "vitest";
 
 vi.mock("better-auth/cookies", () => ({
   getCookieCache: vi.fn(),
+}));
+
+vi.mock("better-auth/cookies", () => ({
+  getSessionCookie: vi.fn(),
 }));
 
 vi.mock("next/server", async () => {
@@ -33,11 +36,12 @@ describe("Middleware", () => {
   });
 
   it("should redirect to /login if session cookie is not present", async () => {
-    const { getCookieCache } = await import("better-auth/cookies");
-    (getCookieCache as Mock).mockResolvedValue(null);
+    const { getSessionCookie } = vi.mocked(await import("better-auth/cookies"));
 
-    const request = new NextRequest("http://localhost:3000/protected");
-    const response = await middleware(request);
+    getSessionCookie.mockReturnValue(null);
+
+    const request = new NextRequest("http://localhost:3000/profile");
+    const response = middleware(request);
 
     expect(response.status).toBe(307);
     expect(response.headers.get("Location")).toBe(
@@ -45,24 +49,45 @@ describe("Middleware", () => {
     );
   });
 
-  it("should allow request to proceed if session cookie is present", async () => {
-    const { getCookieCache } = await import("better-auth/cookies");
-    (getCookieCache as Mock).mockResolvedValue({
-      session: "valid-session",
-    });
+  it("should redirect to /home if the path is root and session cookie is not present", async () => {
+    const { getSessionCookie } = vi.mocked(await import("better-auth/cookies"));
 
-    const request = new NextRequest("http://localhost:3000/protected");
-    const response = await middleware(request);
+    getSessionCookie.mockReturnValue(null);
+
+    const request = new NextRequest("http://localhost:3000/");
+    const response = middleware(request);
+
+    expect(response.status).toBe(307);
+    expect(response.headers.get("Location")).toBe("http://localhost:3000/home");
+  });
+
+  it("should allow request to proceed if session cookie is present", async () => {
+    const { getSessionCookie } = vi.mocked(await import("better-auth/cookies"));
+
+    getSessionCookie.mockReturnValue("valid-session");
+
+    const request = new NextRequest("http://localhost:3000/profile");
+    const response = middleware(request);
+
+    expect(response.status).toBe(200);
+  });
+
+  it("should proceed with root path if session cookie is present", async () => {
+    const { getSessionCookie } = vi.mocked(await import("better-auth/cookies"));
+
+    getSessionCookie.mockReturnValue("valid-session");
+
+    const request = new NextRequest("http://localhost:3000/");
+    const response = middleware(request);
 
     expect(response.status).toBe(200);
   });
 });
 
-describe.skip("Middleware Config", () => {
+describe("Middleware Config", () => {
   it("should have the correct matcher for protected routes", () => {
-    const pattern =
-      "/((?!api|_next/static|_next/image|favicon.ico|sitemap.xml|robots.txt|register|login|home).*)";
-    expect(config.matcher).toEqual([pattern]);
+    const protectedRoutes = ["/", "/profile/:path*"];
+    expect(config.matcher).toEqual(protectedRoutes);
   });
 
   it("should match the expected paths", () => {
