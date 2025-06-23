@@ -36,10 +36,10 @@ export default function ButtonBox() {
     <>
       {!session && (
         <>
-          <Button asChild variant="ghost">
+          <Button asChild variant="ghost" className="hidden sm:inline-flex">
             <Link href="/login">Sign In</Link>
           </Button>
-          <Button asChild>
+          <Button asChild className="hidden sm:inline-flex">
             <Link href="/register">Get Started</Link>
           </Button>
         </>
@@ -48,15 +48,19 @@ export default function ButtonBox() {
       {session && (
         <>
           {isHome ? (
-            <Button asChild>
+            <Button asChild className="hidden sm:inline-flex">
               <Link href="/">Dashboard</Link>
             </Button>
           ) : (
             <>
-              <Button variant="destructive" onClick={handleSignOut}>
+              <Button
+                variant="destructive"
+                className="hidden sm:inline-flex"
+                onClick={handleSignOut}
+              >
                 Sign Out
               </Button>
-              <Button asChild>
+              <Button asChild className="hidden sm:inline-flex">
                 <Link href="/home">Go to Home</Link>
               </Button>
             </>

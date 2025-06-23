@@ -16,6 +16,7 @@ import config from "./config";
 import ButtonBox from "../button-box";
 import useAuth from "@/hooks/useAuth";
 import { authClient } from "@/lib/auth";
+import { useRouter } from "next/navigation";
 
 interface NavbarProps {
   showNavigation?: boolean;
@@ -30,6 +31,17 @@ export default function Navbar({
 }: NavbarProps) {
   const session = authClient.useSession();
   const { isAuthenticated } = useAuth(session?.data?.session);
+  const router = useRouter();
+
+  async function handleSignOut() {
+    await authClient.signOut({
+      fetchOptions: {
+        onSuccess: () => {
+          router.push("/home");
+        },
+      },
+    });
+  }
 
   return (
     <header className={cn("sticky top-0 z-50 -mb-4 px-4 pb-4", className)}>
@@ -42,7 +54,7 @@ export default function Navbar({
               className="flex items-center gap-2 text-lg sm:text-xl font-bold"
             >
               {config.logo}
-              {config.name}
+              <span className="hidden sm:block">{config.name}</span>
             </Link>
             {showNavigation &&
               (customNavigation || (
@@ -68,7 +80,7 @@ export default function Navbar({
                 </Button>
               </SheetTrigger>
               <SheetContent side="right">
-                <nav className="grid gap-6 text-lg font-medium">
+                <nav className="grid gap-6 text-lg font-medium mb-4">
                   <Link
                     href={config.homeUrl}
                     className="flex items-center gap-2 text-xl font-bold"
@@ -95,6 +107,25 @@ export default function Navbar({
                     </Link>
                   ))}
                 </nav>
+                {isAuthenticated && (
+                  <Button
+                    variant="destructive"
+                    className="w-full"
+                    onClick={handleSignOut}
+                  >
+                    Sign Out
+                  </Button>
+                )}
+                {!isAuthenticated && (
+                  <div className="flex flex-col gap-2 w-full">
+                    <Button asChild variant="ghost">
+                      <Link href="/login">Sign In</Link>
+                    </Button>
+                    <Button asChild>
+                      <Link href="/register">Get Started</Link>
+                    </Button>
+                  </div>
+                )}
               </SheetContent>
             </Sheet>
           </NavbarRight>
