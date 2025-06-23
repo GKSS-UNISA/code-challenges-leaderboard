@@ -7,19 +7,25 @@ export async function middleware(request: NextRequest) {
     cookiePrefix: "",
   });
 
-  if (!session) {
-    if (request.nextUrl.pathname === "/") {
-      return NextResponse.redirect(new URL("/home", request.url));
-    } else {
-      return NextResponse.redirect(new URL("/login", request.url));
-    }
-  } else {
-    if (
-      request.nextUrl.pathname === "/login" ||
-      request.nextUrl.pathname === "/register"
-    ) {
-      return NextResponse.redirect(new URL("/", request.url));
-    }
+  switch (request.nextUrl.pathname) {
+    case "/login":
+    case "/register":
+      if (session) {
+        return NextResponse.redirect(new URL("/", request.url));
+      } else {
+        return NextResponse.next();
+      }
+    case "/profile":
+      if (!session) {
+        return NextResponse.redirect(new URL("/login", request.url));
+      }
+      break;
+    case "/":
+      // Redirect root path to home if no session
+      if (!session) {
+        return NextResponse.redirect(new URL("/home", request.url));
+      }
+      break;
   }
 
   return NextResponse.next();
