@@ -44,7 +44,7 @@ export default function LoginForm() {
           return;
         }
 
-        if (data?.redirect) router.replace("/");
+        router.push("/");
       } catch (_error: any) {
         // TODO: send error to exception tracking service
         console.error(_error);
