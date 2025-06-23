@@ -127,7 +127,11 @@ export default function RegisterForm() {
                 name="email"
                 validators={{
                   onChange: ({ value }) =>
-                    !value ? "Email is required" : undefined,
+                    !value
+                      ? "Email is required"
+                      : !value.includes("@")
+                        ? "Invalid email"
+                        : undefined,
                 }}
               >
                 {(field) => (
