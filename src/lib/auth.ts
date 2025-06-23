@@ -9,11 +9,10 @@ const prisma = new PrismaClient();
 
 export const auth = betterAuth({
   secret: process.env.BETTER_AUTH_SECRET,
-  url: process.env.BETTER_AUTH_URL,
   advanced: {
     cookies: {
       session_token: {
-        name: process.env.BETTER_AUTH_COOKIE_NAME,
+        name: process.env.BETTER_AUTH_COOKIE_NAME!,
       },
     },
   },
@@ -32,4 +31,4 @@ export const auth = betterAuth({
   ],
 });
 
-export const authClient = createAuthClient({});
+export const authClient = createAuthClient();

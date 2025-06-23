@@ -32,27 +32,27 @@ export default function RegisterForm() {
     defaultValues,
     onSubmit: async ({ value }) => {
       try {
-        const resp = await authClient.signUp.email({
+        const { error, data } = await authClient.signUp.email({
           name: value.name,
           email: value.email,
           password: value.confirmPassword,
         });
 
-        if (resp.error) {
+        if (error) {
           // TODO: send to exception tracking service
           console.error(
             "Registration error:",
-            resp.error.message ||
-              "An unexpected error occurred. Please try again later."
+            error.message || "Invalid registration details, please try again."
           );
           form.setErrorMap({
             // @ts-expect-error: allow force setting error message
-            onSubmit: resp.error.message || "An unexpected error occurred.",
+            onSubmit:
+              error.message ||
+              "Invalid registration details, please try again.",
           });
         }
 
-        form.reset();
-        router.replace("/");
+        if (data?.token) router.replace("/");
       } catch (_error: any) {
         // TODO: send error to exception tracking service
         console.error(_error);
