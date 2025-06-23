@@ -41,7 +41,7 @@ describe("Middleware", () => {
     getSessionCookie.mockReturnValue(null);
 
     const request = new NextRequest("http://localhost:3000/profile");
-    const response = middleware(request);
+    const response = await middleware(request);
 
     expect(response.status).toBe(307);
     expect(response.headers.get("Location")).toBe(
@@ -55,7 +55,7 @@ describe("Middleware", () => {
     getSessionCookie.mockReturnValue(null);
 
     const request = new NextRequest("http://localhost:3000/");
-    const response = middleware(request);
+    const response = await middleware(request);
 
     expect(response.status).toBe(307);
     expect(response.headers.get("Location")).toBe("http://localhost:3000/home");
@@ -67,7 +67,7 @@ describe("Middleware", () => {
     getSessionCookie.mockReturnValue("valid-session");
 
     const request = new NextRequest("http://localhost:3000/profile");
-    const response = middleware(request);
+    const response = await middleware(request);
 
     expect(response.status).toBe(200);
   });
@@ -78,7 +78,7 @@ describe("Middleware", () => {
     getSessionCookie.mockReturnValue("valid-session");
 
     const request = new NextRequest("http://localhost:3000/");
-    const response = middleware(request);
+    const response = await middleware(request);
 
     expect(response.status).toBe(200);
   });
@@ -86,7 +86,7 @@ describe("Middleware", () => {
 
 describe("Middleware Config", () => {
   it("should have the correct matcher for protected routes", () => {
-    const protectedRoutes = ["/", "/profile/:path*"];
+    const protectedRoutes = ["/", "/profile/:path*", "/login", "/register"];
     expect(config.matcher).toEqual(protectedRoutes);
   });
 
