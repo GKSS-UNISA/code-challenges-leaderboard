@@ -8,11 +8,16 @@ export async function middleware(request: NextRequest) {
   });
 
   if (!session) {
-    if (request.nextUrl.pathname === "/")
+    if (request.nextUrl.pathname === "/") {
       return NextResponse.redirect(new URL("/home", request.url));
-    else return NextResponse.redirect(new URL("/login", request.url));
+    } else {
+      return NextResponse.redirect(new URL("/login", request.url));
+    }
   } else {
-    if (request.nextUrl.pathname === "/login") {
+    if (
+      request.nextUrl.pathname === "/login" ||
+      request.nextUrl.pathname === "/register"
+    ) {
       return NextResponse.redirect(new URL("/", request.url));
     }
   }
@@ -21,5 +26,5 @@ export async function middleware(request: NextRequest) {
 }
 
 export const config = {
-  matcher: ["/", "/profile/:path*"],
+  matcher: ["/", "/profile/:path*", "/login", "/register"],
 };
