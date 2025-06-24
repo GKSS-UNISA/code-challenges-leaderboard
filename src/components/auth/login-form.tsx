@@ -1,5 +1,6 @@
 "use client";
 
+import * as React from "react";
 import { Button } from "@/components/ui/button";
 import {
   Card,
@@ -28,7 +29,7 @@ export default function LoginForm() {
     },
     onSubmit: async ({ value }) => {
       try {
-        const { error, data } = await authClient.signIn.email({
+        const { error } = await authClient.signIn.email({
           email: value.email,
           password: value.password,
         });

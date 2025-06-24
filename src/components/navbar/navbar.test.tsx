@@ -1,6 +1,7 @@
 import { screen } from "@testing-library/react";
 import Navbar from ".";
 import { authClient } from "@/lib/auth";
+import { Mock } from "vitest";
 
 vi.mock("next/navigation", () => ({
   useRouter: () => ({
@@ -71,7 +72,9 @@ vi.mock("./config", () => ({
 describe("Navbar", () => {
   beforeEach(() => {
     vi.clearAllMocks();
-    (authClient.useSession as any).mockReturnValue({ data: { session: null } });
+    (authClient.useSession as Mock).mockReturnValue({
+      data: { session: null },
+    });
   });
 
   it("renders correctly with default props", () => {
@@ -86,11 +89,8 @@ describe("Navbar", () => {
   it("renders navigation when showNavigation is true", () => {
     render(<Navbar showNavigation={true} />);
 
-    // Consider using a more reliable selector than document.querySelector
-    // For example, you could add a data-testid to your Navigation component
     expect(screen.getByTestId("navigation")).toBeInTheDocument();
 
-    // If you must use querySelector, at least check for existence
     const navElement = document.querySelector('[data-slot="navbar-left"]');
     expect(navElement).not.toBeNull();
     expect(navElement?.innerHTML).toContain("nav");
@@ -99,10 +99,8 @@ describe("Navbar", () => {
   it("does not render navigation when showNavigation is false", () => {
     render(<Navbar showNavigation={false} />);
 
-    // Consider using screen queries instead of document.querySelector
     expect(screen.queryByTestId("navigation")).not.toBeInTheDocument();
 
-    // Alternative approach with your current method
     const navbarLeft = document.querySelector('[data-slot="navbar-left"]');
     expect(navbarLeft).not.toBeNull();
     expect(navbarLeft?.querySelectorAll("a").length).toBe(1); // Only the logo link
@@ -113,7 +111,6 @@ describe("Navbar", () => {
     render(<Navbar showNavigation={true} customNavigation={customNav} />);
 
     expect(screen.getByTestId("custom-nav")).toBeInTheDocument();
-    // Also verify the default navigation is not rendered
     expect(screen.queryByTestId("navigation")).not.toBeInTheDocument();
   });
 
@@ -124,23 +121,13 @@ describe("Navbar", () => {
     expect(document.querySelector("header")).toHaveClass(customClass);
   });
 
-  it("does not render protected menu items when user is not authenticated", () => {
-    // Mock the useAuth hook to return isAuthenticated as false (default in our beforeEach)
-    render(<Navbar />);
-
-    // This test will need to be adjusted based on your actual protected menu items
-    // For example:
-    // expect(screen.queryByText('Dashboard')).not.toBeInTheDocument();
-  });
-
   it("passes correct session data to useAuth hook", async () => {
     const mockSession = { id: "test-session" };
-    (authClient.useSession as any).mockReturnValue({
+    (authClient.useSession as Mock).mockReturnValue({
       data: { session: mockSession },
     });
 
     const { default: useAuthMock } = await vi.importMock("@/hooks/useAuth");
-
     render(<Navbar />);
 
     expect(useAuthMock).toHaveBeenCalledWith(mockSession);
