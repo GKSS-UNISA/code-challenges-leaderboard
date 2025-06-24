@@ -24,7 +24,7 @@ export default function RootLayout({
       <body className={`${geistSans.variable} antialiased`}>
         <Navbar />
         <main
-          className="w-full min-h-[calc(100vh-96px)] mt-6 bg-background"
+          className="w-full min-h-[calc(100vh-96px)] mt-6"
           data-testid="main__container"
         >
           {children}
