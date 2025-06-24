@@ -16,7 +16,7 @@ import config from "./config";
 import ButtonBox from "../button-box";
 import useAuth from "@/hooks/useAuth";
 import { authClient } from "@/lib/auth";
-import { useRouter } from "next/navigation";
+import { useRouter, usePathname } from "next/navigation";
 
 interface NavbarProps {
   showNavigation?: boolean;
@@ -31,7 +31,17 @@ export default function Navbar({
 }: NavbarProps) {
   const session = authClient.useSession();
   const { isAuthenticated } = useAuth(session?.data?.session);
+  const [isHome, setIsHome] = React.useState(false);
   const router = useRouter();
+  const pathname = usePathname();
+
+  React.useEffect(() => {
+    if (pathname === "/home") {
+      setIsHome(true);
+    } else {
+      setIsHome(false);
+    }
+  }, [pathname]);
 
   async function handleSignOut() {
     await authClient.signOut({
@@ -108,13 +118,24 @@ export default function Navbar({
                   ))}
                 </nav>
                 {isAuthenticated && (
-                  <Button
-                    variant="destructive"
-                    className="w-full"
-                    onClick={handleSignOut}
-                  >
-                    Sign Out
-                  </Button>
+                  <div className="flex flex-col gap-2 w-full">
+                    {isHome ? (
+                      <Button asChild className="w-full">
+                        <Link href="/">Dashboard</Link>
+                      </Button>
+                    ) : (
+                      <Button asChild className="w-full">
+                        <Link href="/home">Go to Home</Link>
+                      </Button>
+                    )}
+                    <Button
+                      variant="destructive"
+                      className="w-full"
+                      onClick={handleSignOut}
+                    >
+                      Sign Out
+                    </Button>
+                  </div>
                 )}
                 {!isAuthenticated && (
                   <div className="flex flex-col gap-2 w-full">
