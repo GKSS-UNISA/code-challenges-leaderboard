@@ -23,6 +23,11 @@ export default async function Index() {
   const records = await prisma.user.findMany();
   const users = records.sort((a, b) => b.points - a.points);
 
+  async function getUserRank(userId: string) {
+    const userIndex = users.findIndex((user) => user.id === userId);
+    return userIndex !== -1 ? userIndex + 1 : "User not found";
+  }
+
   return (
     <Section
       className="w-full grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-6"
@@ -45,7 +50,9 @@ export default async function Index() {
         <CardContent>
           <h2 className="text-lg font-semibold mb-2">Your Rank</h2>
           <Separator className="mb-2" />
-          <p className="text-2xl font-bold">5th</p>
+          <p className="text-2xl font-bold">
+            {await getUserRank(session?.user.id || "0")}
+          </p>
           <p className="text-muted-foreground mt-1">
             You&apos;re in the top 5% of participants!
           </p>
