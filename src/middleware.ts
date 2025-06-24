@@ -12,9 +12,9 @@ export async function middleware(request: NextRequest) {
     case "/register":
       if (session) {
         return NextResponse.redirect(new URL("/", request.url));
-      } else {
-        return NextResponse.next();
       }
+
+      return NextResponse.next();
     case "/profile":
       if (!session) {
         return NextResponse.redirect(new URL("/login", request.url));
