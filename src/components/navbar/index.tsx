@@ -54,14 +54,19 @@ export default function Navbar({
   }
 
   return (
-    <header className={cn("sticky top-0 z-50 -mb-4 px-4 pb-4", className)}>
-      <div className="fade-bottom bg-background/15 absolute left-0 h-24 w-full backdrop-blur-lg"></div>
+    <header
+      className={cn(
+        "sticky top-0 z-50 -mb-4 px-4 pb-4 bg-background",
+        className
+      )}
+    >
+      <div className="fade-bottom bg-background absolute left-0 h-24 w-full backdrop-blur-lg"></div>
       <div className="max-w-container relative mx-auto">
         <NavbarComponent>
           <NavbarLeft>
             <Link
               href={config.homeUrl}
-              className="flex items-center gap-2 text-lg sm:text-xl font-bold"
+              className="flex items-center gap-2 text-lg sm:text-xl font-bold text-foreground"
             >
               {config.logo}
               <span className="hidden sm:block">{config.name}</span>
@@ -139,7 +144,7 @@ export default function Navbar({
                 )}
                 {!isAuthenticated && (
                   <div className="flex flex-col gap-2 w-full">
-                    <Button asChild variant="ghost">
+                    <Button asChild variant="ghost" className="text-foreground">
                       <Link href="/login">Sign In</Link>
                     </Button>
                     <Button asChild>
