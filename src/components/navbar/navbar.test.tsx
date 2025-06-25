@@ -1,5 +1,6 @@
 import { screen } from "@testing-library/react";
 import Navbar from ".";
+import * as React from "react";
 import { authClient } from "@/lib/auth";
 import { Mock } from "vitest";
 
@@ -20,6 +21,24 @@ vi.mock("../ui/navigation", () => ({
   default: vi
     .fn()
     .mockReturnValue(<nav data-testid="navigation">Navigation</nav>),
+}));
+
+vi.mock("../ui/sheet", () => ({
+  Sheet: vi
+    .fn()
+    .mockImplementation(({ children }: { children: React.ReactNode }) => (
+      <div data-testid="sheet">{children}</div>
+    )),
+  SheetContent: vi
+    .fn()
+    .mockImplementation(({ children }: { children: React.ReactNode }) => (
+      <div data-testid="sheet-content">{children}</div>
+    )),
+  SheetTrigger: vi
+    .fn()
+    .mockImplementation(({ children }: { children: React.ReactNode }) => (
+      <div data-testid="sheet-trigger">{children}</div>
+    )),
 }));
 
 vi.mock("@/lib/auth", () => ({
@@ -80,7 +99,10 @@ describe("Navbar", () => {
   it("renders correctly with default props", () => {
     render(<Navbar />);
 
-    expect(screen.getByText("test name")).toBeInTheDocument();
+    const pageNames = screen.getAllByText("test name");
+
+    for (const name of pageNames) expect(name).toBeInTheDocument();
+
     expect(
       screen.getByRole("button", { name: /toggle navigation menu/i })
     ).toBeInTheDocument();
@@ -154,7 +176,8 @@ describe("Navbar", () => {
 
     const { default: NavbarComponent } = await import(".");
     render(<NavbarComponent />);
+    const protectedTitle = screen.getAllByText("protectedTitle");
 
-    expect(screen.getByText("protectedTitle")).toBeInTheDocument();
+    for (const title of protectedTitle) expect(title).toBeInTheDocument();
   });
 });
